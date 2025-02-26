@@ -1,0 +1,10 @@
+CREATE OR ALTER PROCEDURE getUserById
+    @id UNIQUEIDENTIFIER
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * FROM Users
+    WHERE id = @id;
+END;
+GO
