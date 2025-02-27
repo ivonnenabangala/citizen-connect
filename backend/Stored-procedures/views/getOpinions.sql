@@ -1,0 +1,7 @@
+CREATE OR ALTER PROCEDURE getOpinions
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * FROM Opinions;
+END;

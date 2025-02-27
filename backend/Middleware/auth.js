@@ -25,7 +25,7 @@ export function verifyToken(allowedRoles = []) {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             // console.log("Decoded", decoded);
             
-            req.user = { id: decoded.id, role: decoded.role }; 
+            req.user = { id: decoded.id, role: decoded.role, email: decoded.email }; 
 
             if (allowedRoles.length > 0 && !allowedRoles.includes(req.user.role)) {
                 return res.status(403).json({ message: "Forbidden: Access denied" });

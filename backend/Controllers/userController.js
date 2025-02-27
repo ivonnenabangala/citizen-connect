@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv'
+import { welcomeEmail } from '../Services/emailService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,15 +42,7 @@ export async function addUser(req, res) {
             role
         })
         res.status(201).json({ message: `User created successfully`, });
-        // TODO: => Call send welcome email
-
-        // if(userCreated){
-        //     // TODO: => Call send welcome email
-        //     res.status(201).json({message: `User created successfully`,});
-        // } else{
-        //     console.error("User creation failed, response:", userCreated);
-        //     res.status(500).json({message: 'Error creating user'});
-        // }
+        await welcomeEmail(username, email)
 
     } catch (error) {
         console.error('An error occured while adding user', error)

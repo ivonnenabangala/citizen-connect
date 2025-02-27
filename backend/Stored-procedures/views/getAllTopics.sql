@@ -1,0 +1,7 @@
+CREATE OR ALTER PROCEDURE getTopics
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * FROM TopicQuestion;
+END;
