@@ -40,3 +40,22 @@ CREATE TABLE Opinions(
 
     CONSTRAINT FK_View_Feedback FOREIGN KEY (topicId) REFERENCES TopicQuestion(topicId) ON DELETE CASCADE,
 )
+
+CREATE TABLE Documents (
+    documentId INT PRIMARY KEY IDENTITY(1,1),
+    title VARCHAR(255),
+    description VARCHAR(1000),
+    fileUrl VARCHAR(500), 
+    created_at DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE Incidents (
+    incidentId INT PRIMARY KEY IDENTITY(1,1),
+    userId INT,
+    description VARCHAR(1000),
+    imageUrl VARCHAR(500),
+    created_at DATETIME DEFAULT GETDATE()
+
+    CONSTRAINT FK_Incident_UserId FOREIGN KEY (userId) REFERENCES Users(id),
+);
+

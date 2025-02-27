@@ -5,10 +5,10 @@ export async function addOpinion(req, res) {
 
     try {
 
-        const { opinion } = req.body
+        const { opinion, topicId } = req.body
         const userId = req.user.id;
 
-        await dbHelper.executeProcedure('addOpinion', {opinion, userId})
+        await dbHelper.executeProcedure('addOpinion', {opinion, topicId, userId})
         res.status(201).json({ message: `Your opinion has been received`, });
 
 
@@ -20,8 +20,11 @@ export async function addOpinion(req, res) {
 }
 export async function getAllOpinions(req, res) {
     try {
-        const opinions = await dbHelper.executeProcedure("getOpinions");
-        res.status(200).json(opinions);
+        const { topicId } = req.body
+        const opinionsFound = await dbHelper.executeProcedure('getOpinions', { topicId });
+
+        // const opinions = await dbHelper.executeProcedure("getOpinions");
+        res.status(200).json(opinionsFound);
         
     } catch (error) {
         console.error("Error fetching opinions:", error);
@@ -55,7 +58,7 @@ export async function getUserOpinionsOnTopic(req, res) {
 
 export async function deleteOpinion(req, res) {
     try {
-        const { opinionId } = req.body
+        const { opinionId } = req.params
         
         const opinionFound = await dbHelper.executeProcedure('getOpinionById', { opinionId });
         

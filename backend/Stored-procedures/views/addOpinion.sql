@@ -1,7 +1,7 @@
 CREATE OR ALTER PROCEDURE addOpinion
-    @topicId INT
-    @userId VARCHAR(255)
-    @opinion VARCHAR(1600),
+    @topicId INT,
+    @userId VARCHAR(255),
+    @opinion VARCHAR(1600)
 AS
 BEGIN
     SET NOCOUNT ON;
