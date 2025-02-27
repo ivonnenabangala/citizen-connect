@@ -1,0 +1,7 @@
+CREATE OR ALTER PROCEDURE getDocuments
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * FROM Documents;
+END;

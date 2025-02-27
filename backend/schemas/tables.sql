@@ -51,7 +51,7 @@ CREATE TABLE Documents (
 
 CREATE TABLE Incidents (
     incidentId INT PRIMARY KEY IDENTITY(1,1),
-    userId INT,
+    userId VARCHAR(255),
     description VARCHAR(1000),
     imageUrl VARCHAR(500),
     created_at DATETIME DEFAULT GETDATE()
