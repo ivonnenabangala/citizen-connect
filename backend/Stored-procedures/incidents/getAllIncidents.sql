@@ -1,0 +1,7 @@
+CREATE OR ALTER PROCEDURE getIncidents
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * FROM Incidents;
+END;
