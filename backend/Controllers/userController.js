@@ -7,6 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv'
 import { welcomeEmail } from '../Services/emailService.js';
+import { log } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,15 +19,18 @@ export async function addUser(req, res) {
     try {
         const { error } = addUserSchema.validate(req.body);
         if (error) {
-            return res.status(400).json({ message: `Schema validation failed ${error.message}` });
+            return res.status(400).json({ message: `${error.message}` });
         }
 
         const { username, email, password, role = "user" } = req.body
-
+        console.log(req.body);
+        
         const checkEmail = await dbHelper.executeProcedure('getUserByEmail', { email: email })
         console.log(`Result from checkEmail ${checkEmail}`);
 
         if (checkEmail.length > 0) {
+            console.log("Sending response:", { message: 'User with that email already exists' });
+            
             return res.status(400).json({ message: 'User with that email already exists' })
         }
 

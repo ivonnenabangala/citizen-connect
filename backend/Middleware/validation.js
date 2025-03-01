@@ -9,7 +9,7 @@ const addUserSchema = Joi.object({
     .pattern(new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"))
     .messages({
       "string.pattern.base":
-        "Password must contain at least one uppercase letter, one lowercase letter, and one digit.",
+        "Password must contain at least one uppercase letter, lowercase letter, and digit.",
     })
     .required(),
   role: Joi.string().valid("user", "admin", "govtOfficial").default("user"),
