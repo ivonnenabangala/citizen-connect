@@ -1,0 +1,58 @@
+<div class="d-flex content">
+    <div class="image">
+        <img src="/assets/images/connect.jpeg" alt="">
+    </div>
+    <div class="form">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input 
+            matInput 
+            type="email" 
+            formControlName="email" 
+            placeholder="Enter your email"
+          >
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
+          <mat-error *ngIf="email?.errors?.['email']">Please enter a valid email</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input 
+            matInput 
+            [type]="hidePassword ? 'password' : 'text'" 
+            formControlName="password" 
+            placeholder="Enter your password"
+          >
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+            {{hidePassword ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
+          <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+          <mat-error *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</mat-error>
+        </mat-form-field>
+        
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+        
+        <!-- <div class="form-actions"> -->
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="loginForm.invalid || isLoading" 
+            class="full-width"
+          >
+            <mat-spinner *ngIf="isLoading" [diameter]="20" class="spinner"></mat-spinner>
+            <span>Login</span>
+          </button>
+        <!-- </div> -->
+        
+        <div class="form-footer">
+          <a routerLink="/forgot-password">Forgot password?</a>
+          <p>Don't have an account? <a routerLink="/register">Sign up</a></p>
+        </div>
+      </form>
+    </div>
+</div>

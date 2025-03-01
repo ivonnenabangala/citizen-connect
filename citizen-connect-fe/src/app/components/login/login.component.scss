@@ -1,0 +1,23 @@
+.image{
+    margin-right: 50px;
+}
+.form{
+    display: flex;
+    align-items: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+button{
+    width: 170px;
+    background-color: #33B249 !important;
+    color: white !important;
+}
+.form-footer{
+    margin-top: 20px;
+}
+.form-footer a{
+    color: #33B249;
+}

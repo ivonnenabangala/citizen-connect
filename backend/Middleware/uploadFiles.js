@@ -16,11 +16,11 @@ export const uploadFile = (folder) =>
         storage: multerS3({
             s3: s3,
             bucket: process.env.S3_BUCKET_NAME,
-            // acl: 'public-read', // Makes file accessible via URL
+            // acl: 'public-read', 
             contentType: multerS3.AUTO_CONTENT_TYPE,
             key: function (req, file, cb) {
                 const fileName = `${Date.now()}-${file.originalname}`;
-                cb(null, `${folder}/${fileName}`); // Store in specified folder
+                cb(null, `${folder}/${fileName}`); 
             }
         }),
         fileFilter: function (req, file, cb) {

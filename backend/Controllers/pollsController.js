@@ -66,8 +66,8 @@ export async function updatePoll(req, res) {
 export async function updatePollVotes(req, res) {
     try {
         const { id: pollId } = req.params;
-        console.log(`ID ${pollId}`);
-        console.log(`Request body: ${JSON.stringify(req.body)}`);
+        // console.log(`ID ${pollId}`);
+        // console.log(`Request body: ${JSON.stringify(req.body)}`);
 
         // input will come from a radio button either a yes or no
         const { error, value } = voteSchema.validate(req.body);

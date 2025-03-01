@@ -128,35 +128,38 @@ export async function login(req, res) {
     try {
         const { error, value } = loginSchema.validate(req.body);
         if (error) {
-            return res.status(400).json({ message: `Schema validation failed ${error.message}` });
+            return res.status(400).json({ message: `Validation failed: ${error.message}` });
         }
-        const { email, password } = value
-        const user = await dbHelper.executeProcedure('getUserByEmail', { email: email });
-        console.log(user[0]);
-        console.log(email, password);
-        // console.log(res.status);
-        
-        
-        const userLoggedIn = user[0]
-        console.log(userLoggedIn.password);
-        
-        if (userLoggedIn) {
-            const validPassword = bcrypt.compare(password, userLoggedIn.password)
 
-            if (validPassword) {
-                const token = jwt.sign(
-                    { id: userLoggedIn.id, email: userLoggedIn.email, role: userLoggedIn.role }, 
-                    process.env.JWT_SECRET, 
-                    { expiresIn: '2h' }
-                  );
-                  
-                res.status(200).json({ token });
-            } else {
+        const { email, password } = value;
+        const user = await dbHelper.executeProcedure('getUserByEmail', { email });
 
-            }
+        if (!user || user.length === 0) {
+            return res.status(404).json({ message: 'User not found' });
         }
+
+        const userLoggedIn = user[0];
+
+        if (!userLoggedIn.password) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        const validPassword = await bcrypt.compare(password, userLoggedIn.password);
+
+        if (!validPassword) {
+            return res.status(400).json({ message: 'Incorrect email or password' });
+        }
+
+        const token = jwt.sign(
+            { id: userLoggedIn.id, email: userLoggedIn.email, role: userLoggedIn.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '2h' }
+        );
+
+        return res.status(200).json({ token });
+
     } catch (error) {
-        console.error(error)
+        console.error(error);
         res.status(500).json({ error: 'Login failed' });
     }
 }

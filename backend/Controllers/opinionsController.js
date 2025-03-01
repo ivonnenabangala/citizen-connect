@@ -1,10 +1,14 @@
 import dbHelper from '../DatabaseHelper/dbHelper.js';
+import {addPollSchema} from '../Middleware/validation.js'
 // import { topicEmail } from '../Services/emailService.js';
 
 export async function addOpinion(req, res) {
 
     try {
-
+        const { error } = addPollSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: `Schema validation failed ${error.message}` });
+        }
         const { opinion, topicId } = req.body
         const userId = req.user.id;
 
@@ -42,10 +46,8 @@ export async function getUserOpinionsOnTopic(req, res) {
         const opinionsFound = await dbHelper.executeProcedure('getUserOpinionsOnTopic', { opinionId, userId });
         
         if (opinionsFound) {
-            return res.status(200).json({ message: `User opinions successfully fetched` })
-        } else if(opinionsFound.length === 0){
-            return res.status(200).json({ message: `You have no opinions on this topic` });
-        } else {
+            return res.status(200).json(opinionsFound)
+        }else {
             return res.status(404).json({ message: `Opinions not found` });
         }
     } catch (error) {

@@ -36,4 +36,8 @@ const voteSchema = Joi.object({
   vote: Joi.string().valid("yes", "no").required(),
 });
 
-export { addUserSchema, loginSchema, voteSchema };
+const addPollSchema = Joi.object({
+  question: Joi.string().required(),
+});
+
+export { addUserSchema, loginSchema, voteSchema, addPollSchema };
