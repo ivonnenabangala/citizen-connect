@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDrawerMode, MatSidenavModule} from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +14,7 @@ import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-sidenav',
   imports: [
+    CommonModule,
     MatButtonModule, 
     MatSidenavModule, 
     MatIconModule, 
@@ -30,7 +32,7 @@ export class SidenavComponent implements OnInit{
   sidenavMode: MatDrawerMode = 'side';
 
   isAdmin: boolean = false;
-  isParent: boolean = false;
+  isOfficial: boolean = false;
   mode = new FormControl('side' as MatDrawerMode);
 
   constructor(
@@ -65,9 +67,15 @@ export class SidenavComponent implements OnInit{
     }
   }
   checkUserRole(): void {
-    if (this.location.path().includes('admin')) this.isAdmin = true;
-    if (this.location.path().includes('parent')) this.isParent = true;
+    const role = this.loginService.getUserRole(); // Get user role from token
+    if (role === 'admin') this.isAdmin = true;
+    if (role === 'govtOfficial') this.isOfficial = true;
+    console.log('Role', role);
+    console.log('isAdmin:', this.isAdmin);
+    console.log('isOfficial:', this.isOfficial);
+    
   }
+  
 
   onClick(): void {
     this.sidenavOpen = !this.sidenavOpen; // Toggle sidenav

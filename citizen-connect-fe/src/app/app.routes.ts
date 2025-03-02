@@ -28,5 +28,17 @@ export const routes: Routes = [
         path: 'documents',
         loadComponent: () => import('./components/documents/documents.component').then(c => c.DocumentsComponent)
     },
+    {
+        path: 'admin/dashboard',
+        loadComponent: () => import('./admin/admin-dashboard/admin-dashboard.component').then(c => c.AdminDashboardComponent)
+    },
+    {
+        path: 'admin/polls',
+        loadComponent: () => import('./admin/admin-polls/admin-polls.component').then(c => c.AdminPollsComponent)
+    },
+    {
+        path: 'admin/documents',
+        loadComponent: () => import('./admin/admin-documents/admin-documents.component').then(c => c.AdminDocumentsComponent)
+    },
 
 ];

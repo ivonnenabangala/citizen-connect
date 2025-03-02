@@ -10,7 +10,6 @@ import { Polls } from '../interfaces/polls';
 })
 export class PollsService {
   private apiUrl = 'http://localhost:4000/polls';
-  private pollId = 6
 
   constructor(
     private http: HttpClient,
@@ -58,7 +57,7 @@ export class PollsService {
   }
 
   delete(poll: Polls): Observable<any>{
-    return this.http.delete(`${this.apiUrl}/delete/${this.pollId}`, this.getOptions())
+    return this.http.delete(`${this.apiUrl}/delete/${poll.pollId}`, this.getOptions())
     .pipe(
       catchError(error => {
         console.error('Error fetching polls:', error);

@@ -11,7 +11,7 @@
                 <span class="green">360</span>
             </span>
         </mat-toolbar>
-        <mat-list class="sidenav-list">
+        <mat-list class="sidenav-list" *ngIf="!isAdmin && !isOfficial">
 
             <mat-list-item [routerLink]="['/dashboard']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
@@ -43,7 +43,46 @@
             <mat-divider></mat-divider>
             <mat-list-item [routerLink]="['/discussions']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
-                    <mat-icon mat-list-icon>explore</mat-icon>
+                    <mat-icon mat-list-icon>feedback</mat-icon>
+                    <span>Discussions</span>
+                </div>
+            </mat-list-item>
+
+        </mat-list>
+        <mat-list class="sidenav-list" *ngIf="isAdmin">
+            <mat-list-item [routerLink]="['/admin/dashboard']" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>home</mat-icon>
+                    <span>Admin Dashboard</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <mat-list-item [routerLink]="['/admin/polls']" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>bar_chart</mat-icon>
+                    <span>Admin Polls</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['/incidents']" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>notifications_none</mat-icon>
+                    <span>Incidents</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <mat-list-item [routerLink]="['admin/documents']" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>library_books</mat-icon>
+                    <span>Admin Documents</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['admin/discussions']" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>feedback</mat-icon>
                     <span>Discussions</span>
                 </div>
             </mat-list-item>

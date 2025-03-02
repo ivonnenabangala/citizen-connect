@@ -1,0 +1,13 @@
+<div class="container">
+
+    <mat-list role="list" *ngIf="polls.length > 0">
+        <mat-list-item *ngFor="let poll of polls" role="listitem">
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <span>{{ poll.question }}</span>
+            <span class="fw-bold actions"><span class="status">{{ poll.status }}</span> <mat-icon mat-list-icon>delete</mat-icon></span>
+          </div>
+        </mat-list-item>
+      </mat-list>
+</div>
+  
+  
