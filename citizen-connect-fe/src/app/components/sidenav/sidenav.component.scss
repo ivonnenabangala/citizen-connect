@@ -1,0 +1,32 @@
+.sidenav-list {
+    a {
+        text-decoration: none;
+    }
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+}
+
+.mat-drawer-side {
+    border-right: none !important;
+    width: 15em;
+    background-color: #D3F8DA !important;
+}
+
+.top-nav {
+    margin-right: 256px;
+    background-color: white;
+    color: red !important;
+}
+  mat-icon {
+    font-size: 24px; /* Adjust icon size */
+    color: green;
+  }
+  

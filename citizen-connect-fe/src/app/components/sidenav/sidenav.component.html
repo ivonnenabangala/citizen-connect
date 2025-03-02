@@ -1,1 +1,70 @@
-<p>sidenav works!</p>
+<mat-sidenav-container fullscreen class="sidenav-container">
+    <mat-sidenav #sidenav [mode]="'side'" [opened]="true" class="sidenav">
+        <mat-toolbar>
+            <span>
+                <span class="black">Citizen</span>
+                <span class="red">Connect</span>
+                <span class="green">360</span>
+            </span>
+        </mat-toolbar>
+        <mat-list class="sidenav-list">
+
+            <mat-list-item class="d-flex align-items-center" [routerLink]="['/dashboard']">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>home</mat-icon>
+                    <span>Dashboard</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['/polls']">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>bar_chart</mat-icon>
+                    <span>Active Polls</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['/incidents']">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>notifications_none</mat-icon>
+                    <span>Incidents</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['/documents']">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>library_books</mat-icon>
+                    <span>Documents</span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['/discussions']">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>explore</mat-icon>
+                    <span>Discussions</span>
+                </div>
+            </mat-list-item>
+
+        </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" class="header">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="spacer"></span>
+            <div class="d-flex align-items-center gap-1">
+            
+                <mat-icon style="color: red;">exit_to_app</mat-icon>
+                <button class="top-nav" mat-button>
+                    Logout
+                </button>
+            </div>
+        </mat-toolbar>
+        <main style="margin-top: 64px;">
+
+            <router-outlet></router-outlet>
+        </main>
+        <!-- Content -->
+    </mat-sidenav-content>
+</mat-sidenav-container>

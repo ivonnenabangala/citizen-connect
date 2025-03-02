@@ -1,2 +1,6 @@
-<!-- <app-home></app-home> -->
-<router-outlet></router-outlet>
+<ng-container *ngIf="showSidenav">
+    <app-sidenav></app-sidenav>
+  </ng-container>
+  
+  <router-outlet></router-outlet>
+  
