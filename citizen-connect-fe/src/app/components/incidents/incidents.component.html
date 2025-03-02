@@ -1,1 +1,107 @@
-<p>incidents works!</p>
+<div class="container">
+  <button mat-flat-button class="flat-button" routerLink="/register">Report Incident</button>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>
+      <span class="black">Repor</span>
+      <span class="red">t an In</span>
+      <span class="green">cident</span>
+    </h2>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Title</mat-label>
+        <input 
+          matInput 
+          type="text" 
+          formControlName="title" 
+          placeholder="Enter incident title"
+        >
+        <mat-error *ngIf="title?.errors?.['required']">Title is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea 
+        matInput 
+        type="text" 
+        formControlName="description" 
+        placeholder="Brief description"
+      ></textarea>
+      <mat-error *ngIf="description?.errors?.['required']">Description is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Location</mat-label>
+      <input 
+        matInput 
+        type="text" 
+        formControlName="location" 
+        placeholder="Location"
+      >
+      <mat-error *ngIf="description?.errors?.['required']">Location is required</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Images</mat-label>
+      <input matInput [value]="selectedFileNames" readonly>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+      Upload Images
+    </button>
+    
+    <input 
+      #fileInput 
+      type="file" 
+      (change)="onFileSelected($event)" 
+      multiple 
+      hidden
+    >
+    
+    
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+    
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit" 
+        [disabled]="form.invalid || isLoading" 
+        class="full-width"
+      >
+        <mat-spinner *ngIf="isLoading" [diameter]="20" class="spinner"></mat-spinner>
+        <span>Report</span>
+      </button>
+  </form>
+  <div class="incidents" *ngFor="let incident of incidents">
+      <mat-card class="example-card">
+          <ngx-slick-carousel class="carousel" 
+                              #slickModal="slick-carousel" 
+                              [config]="slideConfig"
+                              (init)="slickInit($event)"
+                              (breakpoint)="breakpoint($event)"
+                              (afterChange)="afterChange($event)"
+                              (beforeChange)="beforeChange($event)">
+              
+              <div ngxSlickItem class="slide" *ngFor="let img of incident.imageUrls">
+                  <img [src]="img" alt="incident image" height="200px">
+              </div>
+
+          </ngx-slick-carousel>
+          
+          <mat-card-content>
+              <p>{{ incident.description }}</p>
+          </mat-card-content>
+          
+          <mat-card-actions>
+            <button mat-icon-button color="warn" (click)="deleteIncident(incident)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            
+          </mat-card-actions>
+          
+          <mat-card-footer>Incident reported {{ incident.timeAgo }}</mat-card-footer>
+      </mat-card>
+  </div>
+</div>

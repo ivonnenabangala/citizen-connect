@@ -1,8 +1,9 @@
 <div class="app-container">
-  @if (showSidenav) {
+  <ng-container *ngIf="showSidenav">
     <app-sidenav></app-sidenav>
-  }
+  </ng-container>  
+  
   <div class="content-area">
-    <router-outlet></router-outlet>
+    <router-outlet></router-outlet>  <!-- ✅ Always visible -->
   </div>
 </div>

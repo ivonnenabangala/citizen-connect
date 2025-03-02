@@ -21,7 +21,7 @@ export class IncidentsService {
     const token = this.authService.getToken()
     return{
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${token}`
       })
     }
@@ -37,15 +37,25 @@ export class IncidentsService {
     )
   }
 
-  createIncident(incident: Incidents): Observable<any>{
-    return this.http.post(`${this.apiUrl}/add`, this.getOptions())
-    .pipe(
-      catchError(error => {
-        console.error('Error fetching polls:', error);
-        return throwError(() => error);
-      })
-    )
+  // createIncident(incident: Incidents): Observable<any>{
+  //   return this.http.post(`${this.apiUrl}/add`, incident, this.getOptions())
+  //   .pipe(
+  //     catchError(error => {
+  //       console.error('Error fetching polls:', error);
+  //       return throwError(() => error);
+  //     })
+  //   )
+  // }
+  createIncident(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/add`, formData, this.getOptions())
+      .pipe(
+        catchError(error => {
+          console.error('Error reporting incident:', error);
+          return throwError(() => error);
+        })
+      );
   }
+  
 
   getIncident(incident: Incidents): Observable<any> {
     return this.http.patch(`${this.apiUrl}/incident/${this.incidentId}`, this.getOptions())
@@ -57,13 +67,14 @@ export class IncidentsService {
     )
   }
 
-  delete(incident: Incidents): Observable<any>{
-    return this.http.delete(`${this.apiUrl}/incident/${this.incidentId}`, this.getOptions())
-    .pipe(
-      catchError(error => {
-        console.error('Error fetching polls:', error);
-        return throwError(() => error);
-      })
-    )
+  delete(incident: Incidents): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete/${incident.incidentId}`, this.getOptions())
+      .pipe(
+        catchError(error => {
+          console.error('Error deleting incident:', error);
+          return throwError(() => error);
+        })
+      );
   }
+  
 }
