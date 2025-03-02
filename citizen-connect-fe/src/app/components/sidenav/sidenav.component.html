@@ -1,5 +1,9 @@
 <mat-sidenav-container fullscreen class="sidenav-container">
-    <mat-sidenav #sidenav [mode]="'side'" [opened]="true" class="sidenav">
+    <mat-sidenav 
+        #sidenav 
+        [mode]="sidenavMode" 
+        [opened]="sidenavOpen"
+        (closedStart)="sidenavOpen = false">
         <mat-toolbar>
             <span>
                 <span class="black">Citizen</span>
@@ -9,35 +13,35 @@
         </mat-toolbar>
         <mat-list class="sidenav-list">
 
-            <mat-list-item class="d-flex align-items-center" [routerLink]="['/dashboard']">
+            <mat-list-item [routerLink]="['/dashboard']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
                     <mat-icon mat-list-icon>home</mat-icon>
                     <span>Dashboard</span>
                 </div>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['/polls']">
+            <mat-list-item [routerLink]="['/polls']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
                     <mat-icon mat-list-icon>bar_chart</mat-icon>
                     <span>Active Polls</span>
                 </div>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['/incidents']">
+            <mat-list-item [routerLink]="['/incidents']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
                     <mat-icon mat-list-icon>notifications_none</mat-icon>
                     <span>Incidents</span>
                 </div>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['/documents']">
+            <mat-list-item [routerLink]="['/documents']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
                     <mat-icon mat-list-icon>library_books</mat-icon>
                     <span>Documents</span>
                 </div>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['/discussions']">
+            <mat-list-item [routerLink]="['/discussions']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
                     <mat-icon mat-list-icon>explore</mat-icon>
                     <span>Discussions</span>
@@ -56,7 +60,7 @@
             <div class="d-flex align-items-center gap-1">
             
                 <mat-icon style="color: red;">exit_to_app</mat-icon>
-                <button class="top-nav" mat-button>
+                <button class="top-nav" mat-button (click)="logout()">
                     Logout
                 </button>
             </div>

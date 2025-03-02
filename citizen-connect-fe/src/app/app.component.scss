@@ -1,0 +1,12 @@
+.app-container {
+    display: flex;
+    height: 100vh; /* Use viewport height instead */
+    width: 100%;
+    overflow: hidden; /* Prevent scrolling on the container */
+  }
+  
+  .content-area {
+    flex: 1;
+    overflow-y: auto; /* Only allow scrolling in the content area */
+    height: 100%; /* Fill the available height */
+  }

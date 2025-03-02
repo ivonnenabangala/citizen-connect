@@ -1,3 +1,50 @@
 <div class="container">
-    <h1>Hello</h1>
+    <div class="greetings">
+        <h2>Welcome back</h2>
+    </div>
+    <div class="row">
+        <!-- First Card (8 columns) -->
+        <div class="col-md-8">
+            <mat-card>
+                <mat-card-title class="title">Active Polls</mat-card-title>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-md-6 mb-3" *ngFor="let poll of polls">
+                            <mat-card class="inner-card">
+                                <mat-card-title>Question: {{ poll.question }}</mat-card-title>
+                                <mat-card-content>Yes {{ poll.yes_votes }}</mat-card-content>
+                                <mat-card-content>No {{ poll.no_votes }}</mat-card-content>
+                                <mat-card-content class="total"><strong>Total Votes:</strong> {{ poll.totalVotes }}</mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    
+        <!-- Second Card (4 columns) -->
+        <div class="col-md-4">
+            <mat-card>
+                <mat-card-title class="title">Reported incidents</mat-card-title>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-md-12 mb-3" *ngFor="let incident of incidents">
+                            <mat-card class="inner-card">
+                                <mat-card-title class="incident-title">{{ incident.title }}</mat-card-title>
+                                <mat-card-content>{{ incident.description }}</mat-card-content>
+                                <mat-card-content>
+                                    <div class="d-flex align-items-center gap-2 justify-content-end">
+                                        <mat-icon>alarm</mat-icon><span class="time">{{ incident.timeAgo }}</span>
+                                    </div>
+                                </mat-card-content>
+
+                            </mat-card>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    
+    
 </div>

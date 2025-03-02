@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { HomeComponent } from "./components/home/home.component";
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd, Event } from '@angular/router';
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,24 @@ import { SidenavComponent } from "./components/sidenav/sidenav.component";
 })
 export class AppComponent {
   title = 'citizen-connect-fe';
-  showSidenav = true;
+  showSidenav = false;
+  ngOnInit() {
+    // Check initial route
+    this.updateSidenavVisibility(this.router.url);
+    
+    // Subscribe to future navigation events
+    this.router.events.pipe(
+      filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.updateSidenavVisibility(event.urlAfterRedirects);
+    });
+  }
 
   constructor(private router: Router) {
-    this.router.events.subscribe(() => {
-      const excludedRoutes = ['/login', '/register', '/'];
-      this.showSidenav = !excludedRoutes.includes(this.router.url);
-    });
+    
+  }
+  private updateSidenavVisibility(url: string) {
+    const excludedRoutes = ['/login', '/register', '/'];
+    this.showSidenav = !excludedRoutes.some(route => url === route);
   }
 }

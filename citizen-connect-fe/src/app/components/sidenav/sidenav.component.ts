@@ -7,6 +7,7 @@ import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { FormControl } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({
@@ -23,10 +24,10 @@ import { FormControl } from '@angular/forms';
   styleUrl: './sidenav.component.scss'
 })
 export class SidenavComponent implements OnInit{
-  sidenavWidth = 16;
+  sidenavWidth = 6;
   showFiller = false;
   sidenavOpen: boolean = false;
-  sidenavMode: string = 'side';
+  sidenavMode: MatDrawerMode = 'side';
 
   isAdmin: boolean = false;
   isParent: boolean = false;
@@ -34,8 +35,15 @@ export class SidenavComponent implements OnInit{
 
   constructor(
     public router: Router,
-    private location: Location
-  ) {}
+    private location: Location,
+    private loginService: LoginService
+  ) {
+    this.router.events.subscribe(() => {
+      if (window.innerWidth < 992) {
+        this.sidenavOpen = false;
+      }
+    });
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -44,31 +52,44 @@ export class SidenavComponent implements OnInit{
 
   ngOnInit() {
     this.checkWindowSize();
-    if (this.location.path().includes('admin')) this.isAdmin = true;
-    if (this.location.path().includes('parent')) this.isParent = true
+    this.checkUserRole();
   }
 
   checkWindowSize(): void {
     if (window.innerWidth >= 992) {
-      this.sidenavOpen = true;
+      this.sidenavOpen = true; // Open sidenav on large screens
       this.sidenavMode = 'side';
     } else {
-      this.sidenavOpen = false;
+      this.sidenavOpen = false; // Close on small screens
       this.sidenavMode = 'over';
     }
   }
-  onClick(): void{
-    if (window.innerWidth <=992){
-      this.sidenavOpen = !this.sidenavOpen;
-    }else{
-      this.sidenavOpen = true;
+  checkUserRole(): void {
+    if (this.location.path().includes('admin')) this.isAdmin = true;
+    if (this.location.path().includes('parent')) this.isParent = true;
+  }
+
+  onClick(): void {
+    this.sidenavOpen = !this.sidenavOpen; // Toggle sidenav
+  }
+  closeSidenavOnSelect(): void {
+    console.log("Reached");
+    
+    if (window.innerWidth < 992) {
+      console.log("Read");
+      
+      this.sidenavOpen = false;
     }
   }
 
-  increase() {
-    this.sidenavWidth = 15;
-  }
-  decrease() {
-    this.sidenavWidth = 4;
-  }
+  logout() {
+    console.log('Logging out...');
+    this.loginService.logout(); 
+    this.router.navigate(['/']).then(() => {
+        this.router.navigateByUrl('/', { replaceUrl: true });
+        window.location.reload()
+    });
+}
+
+
 }
