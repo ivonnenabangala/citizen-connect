@@ -1,1 +1,39 @@
-<p>polls works!</p>
+<h1>Active polls</h1>
+<!-- Success Message -->
+<div *ngIf="successMessage" class="message success-message">
+    {{ successMessage }}
+  </div>
+  
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="message error-message">
+    {{ errorMessage }}
+  </div>
+  
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-4 mb-3 d-flex justify-content-around" *ngFor="let poll of polls">
+        <mat-card class="inner-card d-flex flex-column">
+            <mat-card-title class="incident-title flex-grow-1">{{ poll.question }}</mat-card-title>
+            <mat-card-content>
+                <!-- Radio buttons for voting -->
+                <mat-radio-group class="vote-options d-flex flex-column justify-content-between mt-2"
+                    (change)="vote(poll, $event.value)">
+                    <mat-radio-button value="yes">
+                        Yes ({{ poll.yesPercentage | number:'1.0-0' }}%)
+                        <mat-progress-bar mode="determinate" [value]="poll.yesPercentage"></mat-progress-bar>
+                    </mat-radio-button>
+
+                    <mat-radio-button value="no">
+                        No ({{ poll.noPercentage | number:'1.0-0' }}%)
+                        <mat-progress-bar mode="determinate" [value]="poll.noPercentage"></mat-progress-bar>
+                    </mat-radio-button>
+                </mat-radio-group>
+            </mat-card-content>
+            <mat-card-footer>
+                <strong>Total votes:</strong> {{poll.totalVotes}}
+                <div class=" status  align-items-center gap-2">
+                    <span class="time">{{ poll.status }}</span>
+                </div>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+</div>

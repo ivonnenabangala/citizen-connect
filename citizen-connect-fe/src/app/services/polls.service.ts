@@ -47,11 +47,11 @@ export class PollsService {
     )
   }
 
-  vote(poll: Polls): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/votes/${this.pollId}`, this.getOptions())
+  vote(pollId: number, voteType: 'yes' | 'no'): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/votes/${pollId}`, {vote: voteType}, this.getOptions())
     .pipe(
       catchError(error => {
-        console.error('Error fetching polls:', error);
+        // console.error('Error fetching polls:', error);
         return throwError(() => error);
       })
     )

@@ -1,14 +1,13 @@
-<p>documents works!</p>
-
-<mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Self aware panel </mat-panel-title>
-        <mat-panel-description>
-          Currently I am {{panelOpenState() ? 'open' : 'closed'}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
-    </mat-expansion-panel>
-</mat-accordion>
+<div class="container" *ngFor="let document of documents">
+    <mat-card>
+        <mat-card-header>{{document.title}}</mat-card-header>
+        <mat-card-content>{{document.description}}</mat-card-content>
+        <mat-card-actions>
+            <div class="buttons">
+                <a mat-stroked-button class="stroked-button" [href]="document.fileUrl" target="_blank">Read</a>
+                <a mat-flat-button class="flat-button" >Explainer</a>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>
   

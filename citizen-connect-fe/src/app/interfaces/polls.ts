@@ -7,4 +7,6 @@ export interface Polls {
     expires_at: Date,
     status: string
     totalVotes: number
+    yesPercentage: number
+    noPercentage: number
 }

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv'
+import { log } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -87,6 +88,8 @@ export async function updatePollVotes(req, res) {
 
         const existingVote = await dbHelper.executeProcedure('checkUserVote', { userId, pollId });
         if (existingVote.length > 0) {
+            console.log('You have already voted');
+            
             return res.status(400).json({ message: `You have already voted on this poll` });
         }
 
