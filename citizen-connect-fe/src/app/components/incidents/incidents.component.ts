@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Incidents } from '../../interfaces/incidents';
 import { IncidentsService } from '../../services/incidents.service';
@@ -10,30 +10,25 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportIncidentDialogComponent } from '../report-incident-dialog/report-incident-dialog.component';
 
 @Component({
   selector: 'app-incidents',
   imports: [
     CommonModule, MatButtonModule, MatCardModule, MatIconModule, SlickCarouselModule,
-    MatInputModule, MatProgressSpinnerModule, MatFormFieldModule, ReactiveFormsModule
+    MatInputModule, MatProgressSpinnerModule, MatFormFieldModule, ReactiveFormsModule,
+    MatExpansionModule
   ],
   templateUrl: './incidents.component.html',
-  styleUrl: './incidents.component.scss'
+  styleUrl: './incidents.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IncidentsComponent implements OnInit {
+  readonly panelOpenState = signal(false);
   incidents: Incidents[] = []
-  form!: FormGroup
-  errorMessage: string = ''
-  successMessage: string = ''
-  isLoading: boolean = false
 
-  slides = [
-    { img: "assets/images/intro.jpeg" },
-    { img: "assets/images/country.png" },
-    { img: "assets/images/hands.jpeg" },
-    { img: "assets/images/intro.jpeg" },
-    { img: "assets/images/intro.jpeg" },
-  ];
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -48,56 +43,42 @@ export class IncidentsComponent implements OnInit {
 
   constructor(
     private incidentsService: IncidentsService,
-    private formBuilder: FormBuilder,
-  ) {
-    this.form = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      location: ['', Validators.required],
-      images: ['']
-    })
-  }
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) {  }
   ngOnInit(): void {
     this.getIncidents()
     console.log('Component initialized at:', new Date().toISOString());
+  }
+  openReportDialog(): void {
+    const dialogRef = this.dialog.open(ReportIncidentDialogComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'success') {
+        this.getIncidents(); // Refresh incidents after successful report
+        
+      }
+    });
   }
 
   getIncidents(): void {
     this.incidentsService.getIncidents().subscribe({
       next: (data: Incidents[]) => {
-        this.incidents = data.map((incident) => {
-          const parsedImageUrls = typeof incident.imageUrls === "string" ? JSON.parse(incident.imageUrls) : [];
-
-          return {
-            ...incident,
-            imageUrls: parsedImageUrls,
-            timeAgo: this.getTimeAgo(new Date(incident.created_at))
-          };
-        });
+        this.incidents = [...data.map((incident) => ({
+          ...incident,
+          imageUrls: typeof incident.imageUrls === 'string' ? JSON.parse(incident.imageUrls) : [],
+          timeAgo: this.getTimeAgo(new Date(incident.created_at))
+        }))];
+  
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error fetching incidents:', error);
       }
-    });
+    }) 
   }
-
-
-  selectedFileNames: string = 'No files selected';
-
-
-  selectedFiles: File[] = [];
-
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFiles = Array.from(input.files);
-      this.selectedFileNames = this.selectedFiles.map(file => file.name).join(', ');
-    } else {
-      this.selectedFileNames = 'No files selected';
-    }
-  }
-
-
 
   getTimeAgo(date: Date): string {
     const now = new Date();
@@ -138,59 +119,12 @@ export class IncidentsComponent implements OnInit {
     console.log('Before change event');
   }
 
-  onSubmit(): void {
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = '';
-    this.successMessage = '';
-
-    const formData = new FormData();
-    formData.append('title', this.form.get('title')?.value);
-    formData.append('description', this.form.get('description')?.value);
-    formData.append('location', this.form.get('location')?.value);
-
-    this.selectedFiles.forEach(file => {
-      formData.append('images', file); 
-    });
-
-    // console.log('FormData entries:', [...formData.entries()]); 
-
-    this.incidentsService.createIncident(formData).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.successMessage = '✅ Incident created successfully!';
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.errorMessage = err?.error?.message || 'Incident reporting failed! Please try again.';
-      }
-    });
-  }
-
-
-  get title() {
-    return this.form.get('title')
-  }
-
-  get description() {
-    return this.form.get('description')
-  }
-
-  get location() {
-    return this.form.get('location')
-  }
-  get images() {
-    return this.form.get('images')
-  }
-
   deleteIncident(incident: Incidents): void {
     this.incidentsService.delete(incident).subscribe({
       next: () => {
         console.log(`Incident ${incident.incidentId} deleted successfully`);
-        this.incidents = this.incidents.filter(i => i.incidentId !== incident.incidentId); // Update UI
+        this.incidents = this.incidents.filter(i => i.incidentId !== incident.incidentId); 
+        this.cdr.detectChanges();
       },
       error: (err) => console.error('Delete failed:', err)
     });

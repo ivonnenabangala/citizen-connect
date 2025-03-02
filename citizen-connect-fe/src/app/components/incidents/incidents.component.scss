@@ -1,11 +1,4 @@
-.example-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center;
-    width: 100%; 
-  }
-  
+ 
   .carousel {
     width: 40%;  /* Make the carousel take 50% width of the card */
     margin: auto; /* Center it */
@@ -42,6 +35,6 @@
     right: -50px;
   }
   .incidents{
-    padding: 20px;
+    padding: 10px;
   }
   
