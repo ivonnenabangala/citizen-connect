@@ -1,12 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDrawerMode, MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormControl } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 
@@ -15,17 +15,17 @@ import { LoginService } from '../../services/login.service';
   selector: 'app-sidenav',
   imports: [
     CommonModule,
-    MatButtonModule, 
-    MatSidenavModule, 
-    MatIconModule, 
-    MatListModule, 
-    RouterLink, 
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    RouterLink,
     RouterOutlet,
     MatToolbarModule],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss'
 })
-export class SidenavComponent implements OnInit{
+export class SidenavComponent implements OnInit {
   sidenavWidth = 6;
   showFiller = false;
   sidenavOpen: boolean = false;
@@ -73,37 +73,41 @@ export class SidenavComponent implements OnInit{
     console.log('Role', role);
     console.log('isAdmin:', this.isAdmin);
     console.log('isOfficial:', this.isOfficial);
-    
+
   }
-  
+
 
   onClick(): void {
     this.sidenavOpen = !this.sidenavOpen; // Toggle sidenav
   }
   isPollsDropdownOpen = false;
+  isDocsDropdownOpen = false;
 
-// Toggle the polls dropdown
-togglePollsDropdown(): void {
-  this.isPollsDropdownOpen = !this.isPollsDropdownOpen;
-}
+  // Toggle the polls dropdown
+  togglePollsDropdown(): void {
+    this.isPollsDropdownOpen = !this.isPollsDropdownOpen;
+  }
+  toggleDocsDropdown(): void {
+    this.isDocsDropdownOpen = !this.isDocsDropdownOpen;
+  }
   closeSidenavOnSelect(): void {
     console.log("Reached");
-    
+
     if (window.innerWidth < 992) {
       console.log("Read");
-      
+
       this.sidenavOpen = false;
     }
   }
 
   logout() {
     console.log('Logging out...');
-    this.loginService.logout(); 
+    this.loginService.logout();
     this.router.navigate(['/']).then(() => {
-        this.router.navigateByUrl('/', { replaceUrl: true });
-        window.location.reload()
+      this.router.navigateByUrl('/', { replaceUrl: true });
+      window.location.reload()
     });
-}
+  }
 
 
 }

@@ -1,15 +1,72 @@
 <div class="container">
-
+  <div *ngIf="activeView === 'manage'">
+    <h2>Manage Documents</h2>
     <mat-list role="list" *ngIf="documents.length > 0">
-        <mat-list-item *ngFor="let document of documents" role="listitem">
-          <div class="d-flex w-100 justify-content-between align-items-center">
-            <span>{{ document.title }}</span>
-            <span class="fw-bold actions"> 
-              <mat-icon mat-list-icon (click)="deleteDocument(document)">delete</mat-icon>
-            </span>
+      <mat-list-item *ngFor="let document of documents" role="listitem">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+          <span>{{ document.title }}</span>
+          <span class="fw-bold actions">
+            <mat-icon mat-list-icon (click)="deleteDocument(document)">delete</mat-icon>
+          </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <div *ngIf="documents.length === 0" class="text-center mt-4">
+      <p>No Document available</p>
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-center align-items-center" *ngIf="activeView === 'add'">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>
+          Add New Document
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" formControlName="title" placeholder="Enter document title">
+            <mat-error *ngIf="title?.errors?.['required']">Title is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput type="text" formControlName="description" 
+            placeholder="Brief description of the document"></textarea>
+            <mat-error *ngIf="description?.errors?.['required']">Description is required</mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Document</mat-label>
+            <input formControlName="document" matInput [value]="selectedFileNames.join(', ')" readonly>
+          </mat-form-field>
+          <button type="button" (click)="fileInput.click()" class="w-50 mb-3 upload">
+            Upload Document
+          </button>
+
+          <input #fileInput type="file" (change)="onFileSelected($event)" hidden>
+
+
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
           </div>
-        </mat-list-item>
-      </mat-list>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+          <div class="submit-btn">
+
+            <button type="submit" [disabled]="form.invalid || isLoading"
+              class="w-50 mb-3 submit">
+              <mat-spinner *ngIf="isLoading" [diameter]="20" class="spinner"></mat-spinner>
+              <span>Add</span>
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
-  
-  

@@ -1,3 +1,23 @@
 .actions mat-icon{
     color: red;
 }
+.card{
+    width: 60%;
+}
+.upload{
+    width: 120px !important;
+    background-color: white;
+    border: 1px solid green;
+    border-radius: 8px;
+}
+.submit-btn{
+    display: flex;
+    justify-content: end;
+}
+.submit{
+    width: 100px !important;
+    background-color: green;
+    color: white;
+    font-size: larger;
+    border-radius: 8px;
+}
