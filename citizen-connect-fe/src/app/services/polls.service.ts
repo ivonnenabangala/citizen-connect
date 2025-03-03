@@ -36,8 +36,8 @@ export class PollsService {
     )
   }
 
-  createPoll(poll: Polls): Observable<any>{
-    return this.http.post(`${this.apiUrl}/add`, this.getOptions())
+  createPoll(question: string, expires_at: Date): Observable<any>{
+    return this.http.post(`${this.apiUrl}/add`, {question, expires_at}, this.getOptions())
     .pipe(
       catchError(error => {
         console.error('Error fetching polls:', error);

@@ -29,4 +29,11 @@
     font-size: 24px; /* Adjust icon size */
     color: green;
   }
+  .sidenav-dropdown {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+  
+  mat-list-item {
+    cursor: pointer;
+  }
   

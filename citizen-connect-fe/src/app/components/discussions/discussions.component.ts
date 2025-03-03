@@ -95,44 +95,4 @@ export class DiscussionsComponent implements OnInit{
     });
   }
   
-  // onSubmit(): void{
-  //   if(this.form.invalid){
-  //     return
-  //   }
-
-  //   this.isLoading = true
-  //   this.errorMessage = ''
-  //   this.successMessage = ''
-
-  //   const { opinion } = this.form.value
-
-  //   this.discussionsService.addOpinion(opinion).subscribe({
-  //     next: () => {
-  //       this.isLoading = false
-  //       this.successMessage = '✅ Opinion submitted successfully!';
-  //       this.openSnackBar(this.successMessage)
-  //       this.cdr.detectChanges()
-  //     },
-  //     error: (error) => {
-  //       this.errorMessage = error?.error?.message || 'An error occurred while submitting your opinion.';
-  //       this.cdr.detectChanges();
-  //       this.openSnackBar(this.errorMessage);
-  //       setTimeout(() => this.errorMessage = '', 3000);
-  //     }
-  //   })
-  // }
-
-
-  // fetchTopics(): void{
-  //   this.discussionsService.getTopics().subscribe({
-  //     next: (data: Discussions[]) => {
-  //       this.cdr.detectChanges();
-  //       this.discussions = [...data.map((discussion) => ({
-  //         ...discussion
-  //       }))]
-  //       console.log(this.discussions);
-
-  //     }
-  //   })
-  // }
 }

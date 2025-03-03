@@ -80,6 +80,12 @@ export class SidenavComponent implements OnInit{
   onClick(): void {
     this.sidenavOpen = !this.sidenavOpen; // Toggle sidenav
   }
+  isPollsDropdownOpen = false;
+
+// Toggle the polls dropdown
+togglePollsDropdown(): void {
+  this.isPollsDropdownOpen = !this.isPollsDropdownOpen;
+}
   closeSidenavOnSelect(): void {
     console.log("Reached");
     
