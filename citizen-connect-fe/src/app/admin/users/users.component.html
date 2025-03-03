@@ -1,0 +1,36 @@
+<div class="users-container">
+    <h2>Users Management</h2>
+    
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span *ngIf="!user.editMode">{{ user.role }}</span>
+            <select *ngIf="user.editMode" [(ngModel)]="user.selectedRole">
+              <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+            </select>
+          </td>
+          <td>
+            <div *ngIf="!user.editMode">
+              <button mat-raised-button (click)="enableEditMode(user)" class="edit-btn">Edit</button>
+            </div>
+            <div *ngIf="user.editMode" class="action-buttons">
+              <button (click)="updateUserRole(user)" class="update-btn">Update</button>
+              <button (click)="cancelEdit(user)" class="cancel-btn">Cancel</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -86,6 +86,13 @@
                     <span>Discussions</span>
                 </div>
             </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['/users']" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2">
+                    <mat-icon mat-list-icon>account_circle</mat-icon>
+                    <span>Users</span>
+                </div>
+            </mat-list-item>
 
         </mat-list>
     </mat-sidenav>

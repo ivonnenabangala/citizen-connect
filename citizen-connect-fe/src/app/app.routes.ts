@@ -40,5 +40,9 @@ export const routes: Routes = [
         path: 'admin/documents',
         loadComponent: () => import('./admin/admin-documents/admin-documents.component').then(c => c.AdminDocumentsComponent)
     },
+    {
+        path: 'users',
+        loadComponent: () => import('./admin/users/users.component').then(c => c.UsersComponent)
+    },
 
 ];
