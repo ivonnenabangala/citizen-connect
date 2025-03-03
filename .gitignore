@@ -1,2 +1,5 @@
 node_modules/
 .env
+# Ignore environments folder
+citizen-connect-fe/src/environments/environment.ts
+citizen-connect-fe/src/environments/environment.prod.ts

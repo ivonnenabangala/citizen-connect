@@ -58,12 +58,6 @@
             </mat-list-item>
             <mat-divider></mat-divider>
 
-            <!-- <mat-list-item [routerLink]="['/admin/polls']" (click)="closeSidenavOnSelect()">
-                <div class="d-flex align-items-center gap-2">
-                    <mat-icon mat-list-icon>bar_chart</mat-icon>
-                    <span>Admin Polls</span>
-                </div>
-            </mat-list-item> -->
             <mat-list-item (click)="togglePollsDropdown()">
                 <div class="d-flex align-items-center gap-2">
                   <mat-icon mat-list-icon>bar_chart</mat-icon>
@@ -121,7 +115,7 @@
                 </mat-list-item>
               </div>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="toggleDiscussionDropdown()">
+            <mat-list-item (click)="toggleDiscussionDropdown()" *ngIf="isOfficial">
                 <div class="d-flex align-items-center gap-2">
                   <mat-icon mat-list-icon>feedback</mat-icon>
                   <span>Discussions</span>
@@ -153,6 +147,76 @@
             </mat-list-item>
 
         </mat-list>
+        <mat-list class="sidenav-list" *ngIf="isOfficial">
+          <mat-list-item [routerLink]="['/dashboard']" (click)="closeSidenavOnSelect()">
+            <div class="d-flex align-items-center gap-2">
+                <mat-icon mat-list-icon>home</mat-icon>
+                <span>Dashboard</span>
+            </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="['/polls']" (click)="closeSidenavOnSelect()">
+            <div class="d-flex align-items-center gap-2">
+                <mat-icon mat-list-icon>bar_chart</mat-icon>
+                <span>Active Polls</span>
+            </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="['/incidents']" (click)="closeSidenavOnSelect()">
+            <div class="d-flex align-items-center gap-2">
+                <mat-icon mat-list-icon>notifications_none</mat-icon>
+                <span>Incidents</span>
+            </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="['/documents']" (click)="closeSidenavOnSelect()">
+            <div class="d-flex align-items-center gap-2">
+                <mat-icon mat-list-icon>library_books</mat-icon>
+                <span>Documents</span>
+            </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        
+          <mat-list-item [routerLink]="['/incidents']" (click)="closeSidenavOnSelect()">
+              <div class="d-flex align-items-center gap-2">
+                  <mat-icon mat-list-icon>notifications_none</mat-icon>
+                  <span>Incidents</span>
+              </div>
+          </mat-list-item>
+          
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="toggleDiscussionDropdown()" >
+              <div class="d-flex align-items-center gap-2">
+                <mat-icon mat-list-icon>feedback</mat-icon>
+                <span>Discussions</span>
+                <mat-icon>{{ isDiscussionDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+              </div>
+            </mat-list-item>
+            
+            <div class="sidenav-dropdown" *ngIf="isDiscussionDropdownOpen">
+              <mat-list-item [routerLink]="['/discussions']" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2 ms-4">
+                    <mat-icon mat-list-icon>feedback</mat-icon>
+                    <span>Discussions</span>
+                </div>
+            </mat-list-item>
+              <mat-list-item [routerLink]="['/admin/discussions']" [queryParams]="{view: 'manage'}" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2 ms-4">
+                  <mat-icon mat-list-icon>list</mat-icon>
+                  <span>Manage</span>
+                </div>
+              </mat-list-item>
+            
+              <mat-list-item [routerLink]="['/admin/discussions']" [queryParams]="{view: 'add'}" (click)="closeSidenavOnSelect()">
+                <div class="d-flex align-items-center gap-2 ms-4">
+                  <mat-icon mat-list-icon>add_circle</mat-icon>
+                  <span>Add Topic</span>
+                </div>
+              </mat-list-item>
+            </div>
+          <mat-divider></mat-divider>
+
+      </mat-list>
     </mat-sidenav>
 
     <mat-sidenav-content>

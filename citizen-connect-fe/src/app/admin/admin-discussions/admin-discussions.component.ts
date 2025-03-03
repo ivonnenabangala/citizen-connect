@@ -30,6 +30,7 @@ export class AdminDiscussionsComponent implements OnInit {
   errorMessage: string = ''
   successMessage: string = ''
   isLoading: boolean = false
+  summarizedOpinion: string = '';
 
   constructor(
     private discussionsService: DiscussionsService,
@@ -69,6 +70,24 @@ export class AdminDiscussionsComponent implements OnInit {
         this.cdr.detectChanges();
         console.log('Discussions', data);
 
+      }
+    });
+  }
+
+  fetchSummarizedOpinion(topic:Discussions): void {
+    this.isLoading = true;
+    this.errorMessage = ''; // Reset error state
+
+    this.discussionsService.getSummarizedOpinions(topic.topicId).subscribe({
+      next: (summary) => {
+        console.log('✅ Fetched Summary:', summary);
+        this.summarizedOpinion = summary;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('❌ Error fetching summary:', error);
+        this.errorMessage = 'Failed to load summary. Please try again.';
+        this.isLoading = false;
       }
     });
   }

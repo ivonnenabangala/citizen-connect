@@ -69,7 +69,7 @@ export class SidenavComponent implements OnInit {
   checkUserRole(): void {
     const role = this.loginService.getUserRole(); // Get user role from token
     if (role === 'admin') this.isAdmin = true;
-    if (role === 'govtOfficial') this.isOfficial = true;
+    if (role === 'government official') this.isOfficial = true;
     console.log('Role', role);
     console.log('isAdmin:', this.isAdmin);
     console.log('isOfficial:', this.isOfficial);

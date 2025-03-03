@@ -22,12 +22,30 @@ export async function addOpinion(req, res) {
     }
 
 }
+// export async function getAllOpinions(req, res) {
+//     try {
+//         const { topicId } = req.body
+//         const opinionsFound = await dbHelper.executeProcedure('getOpinions', { topicId });
+
+//         // const opinions = await dbHelper.executeProcedure("getOpinions");
+//         res.status(200).json(opinionsFound);
+        
+//     } catch (error) {
+//         console.error("Error fetching opinions:", error);
+//         res.status(500).json({ success: false, error: "Internal Server Error" });
+//     }
+// }
+
 export async function getAllOpinions(req, res) {
     try {
-        const { topicId } = req.body
+        const { topicId } = req.query; // Extract topicId from query parameters
+
+        if (!topicId) {
+            return res.status(400).json({ success: false, error: "Missing topicId parameter" });
+        }
+
         const opinionsFound = await dbHelper.executeProcedure('getOpinions', { topicId });
 
-        // const opinions = await dbHelper.executeProcedure("getOpinions");
         res.status(200).json(opinionsFound);
         
     } catch (error) {
@@ -35,6 +53,7 @@ export async function getAllOpinions(req, res) {
         res.status(500).json({ success: false, error: "Internal Server Error" });
     }
 }
+
 
 export async function getUserOpinionsOnTopic(req, res) {
     try {

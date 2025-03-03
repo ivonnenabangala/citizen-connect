@@ -1,6 +1,16 @@
 <div class="container">
     <div *ngIf="activeView === 'manage'">
       <h2>Manage Discussions</h2>
+      <div *ngIf="isLoading">🔄 Loading summary...</div>
+
+<div *ngIf="errorMessage" class="error">
+  ❌ {{ errorMessage }}
+</div>
+
+<div *ngIf="summarizedOpinion && !isLoading">
+  <h3>📌 Summarized Opinion:</h3>
+  <p>{{ summarizedOpinion }}</p>
+</div>
       <div  *ngIf="discussions.length > 0">
         <div class="discussions" *ngFor="let discussion of discussions">
 
@@ -10,20 +20,11 @@
                 </mat-card-content>
                 <mat-card-footer>
                     <button class="btn" type="button" (click)="deleteTopic(discussion)">Close</button>
+                    <button class="btn" type="button" (click)="fetchSummarizedOpinion(discussion)">Summary</button>
                 </mat-card-footer>
             </mat-card>
         </div>
       </div>
-      <!-- <mat-list role="list" *ngIf="discussions.length > 0">
-        <mat-list-item *ngFor="let discussion of discussions" role="listitem">
-          <div class="d-flex w-100 justify-content-between align-items-center">
-            <span>{{ discussion.question.split(' ').slice(0, 20).join(' ') }}...</span>
-            <span class="fw-bold actions">
-              <mat-icon mat-list-icon (click)="deleteTopic(discussion)">delete</mat-icon>
-            </span>
-          </div>
-        </mat-list-item>
-      </mat-list> -->
       <div *ngIf="discussions.length === 0" class="text-center mt-4">
         <p>No Topics available</p>
       </div>
