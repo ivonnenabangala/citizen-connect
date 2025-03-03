@@ -44,9 +44,17 @@ export class LoginComponent implements OnInit {
     // console.log('User logged in:', this.loginService.isLoggedIn());
   
     if (this.loginService.isLoggedIn()) {
+      const role = this.loginService.getUserRole()
     // console.log('User logged in:', this.loginService.isLoggedIn());
       console.log('Redirecting to dashboard...');
-      this.router.navigate(['/dashboard']);
+      if (role === 'admin') {
+        this.router.navigate(['/admin/dashboard']);  // Redirect admin
+    } else if(role === 'govtOfficial'){
+      this.router.navigate(['/official/dashboard']);
+    }
+     else {
+        this.router.navigate(['/dashboard']);  // Redirect normal user
+    }
     }
   }
   

@@ -5,15 +5,15 @@ import {addPollSchema} from '../Middleware/validation.js'
 export async function addOpinion(req, res) {
 
     try {
-        const { error } = addPollSchema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ message: `Schema validation failed ${error.message}` });
-        }
+        // const { error } = addPollSchema.validate(req.body);
+        // if (error) {
+        //     return res.status(400).json({ message: `Schema validation failed ${error.message}` });
+        // }
         const { opinion, topicId } = req.body
         const userId = req.user.id;
 
         await dbHelper.executeProcedure('addOpinion', {opinion, topicId, userId})
-        res.status(201).json({ message: `Your opinion has been received`, });
+        res.status(201).json({ message: `Your opinion has been received` });
 
 
     } catch (error) {

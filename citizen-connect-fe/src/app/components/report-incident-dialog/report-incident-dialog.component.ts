@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Incidents } from '../../interfaces/incidents';
 import { IncidentsService } from '../../services/incidents.service';
@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogRef } from '@angular/material/dialog';
+import {MatSnackBar, MatSnackBarHorizontalPosition,MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-report-incident-dialog',
@@ -29,7 +31,8 @@ export class ReportIncidentDialogComponent {
   constructor(
     private incidentsService: IncidentsService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<ReportIncidentDialogComponent>
+    private dialogRef: MatDialogRef<ReportIncidentDialogComponent>,
+    private cdr: ChangeDetectorRef
   ) {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
@@ -38,6 +41,22 @@ export class ReportIncidentDialogComponent {
       images: ['']
     })
   }
+
+  private _snackBar = inject(MatSnackBar);
+  
+    horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+    verticalPosition: MatSnackBarVerticalPosition = 'top';
+    durationInSeconds = 5;
+  
+    openSnackBar(message: string, action: string = 'Close') {
+      this._snackBar.open(message, action, {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+
+    
   ngOnInit(): void {
     console.log('In dialog');
     
@@ -79,16 +98,20 @@ export class ReportIncidentDialogComponent {
       formData.append('images', file); 
     });
 
-    console.log('FormData entries:', [...formData.entries()]); 
+    // console.log('FormData entries:', [...formData.entries()]); 
 
     this.incidentsService.createIncident(formData).subscribe({
       next: () => {
         this.isLoading = false;
-        this.successMessage = '✅ Incident created successfully!';
+        this.successMessage = '✅ Incident reported!';
+        this.openSnackBar(this.successMessage)
+        this.cdr.detectChanges
       },
       error: (err) => {
         this.isLoading = false;
         this.errorMessage = err?.error?.message || 'Incident reporting failed! Please try again.';
+        this.openSnackBar(this.errorMessage)
+        
       }
     });
     this.dialogRef.close();

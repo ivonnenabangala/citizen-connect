@@ -6,6 +6,7 @@ import { Polls } from '../../interfaces/polls';
 import { PollsService } from '../../services/polls.service';
 import { Incidents } from '../../interfaces/incidents';
 import { IncidentsService } from '../../services/incidents.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ import { IncidentsService } from '../../services/incidents.service';
 export class DashboardComponent implements OnInit {
   polls: Polls[] = [];
   incidents: Incidents[] = []
+  userEmail: string | null = null;
 
   otherPolls = [
     { title: 'Poll 5', content: 'Description for poll 5' },
@@ -23,12 +25,14 @@ export class DashboardComponent implements OnInit {
   ];
 
   constructor(
+    private loginService: LoginService,
     private pollsService: PollsService,
     private incidentsService: IncidentsService
   ) {}
   ngOnInit(): void {
     this.fetchPolls()
     this.fetchIncidents()
+    this.userEmail = this.loginService.getUserData()?.email || 'Guest';
   }
 
   fetchPolls(): void{

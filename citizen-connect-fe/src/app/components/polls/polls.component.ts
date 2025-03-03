@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSnackBar, MatSnackBarHorizontalPosition,MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { PollsService } from '../../services/polls.service';
 import { Polls } from '../../interfaces/polls';
 import { ChangeDetectorRef } from '@angular/core';
@@ -25,6 +26,20 @@ export class PollsComponent implements OnInit{
     private pollsService: PollsService,
     private cdr: ChangeDetectorRef
   ) {}
+  private _snackBar = inject(MatSnackBar);
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  durationInSeconds = 5;
+
+  openSnackBar(message: string, action: string = 'Close') {
+    this._snackBar.open(message, action, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  
   
   ngOnInit(): void {
     this.fetchPolls()
@@ -59,6 +74,7 @@ export class PollsComponent implements OnInit{
         poll.yesPercentage = poll.totalVotes > 0? (poll.yes_votes / poll.totalVotes) * 100 : 0;
         poll.noPercentage = poll.totalVotes > 0 ? (poll.no_votes / poll.totalVotes) * 100 : 0;
         this.successMessage = 'Your vote has been submitted!';
+        this.openSnackBar(this.successMessage)
         this.cdr.detectChanges(); // Force update in UI
         setTimeout(() => this.successMessage = '', 3000);
       },
@@ -66,6 +82,7 @@ export class PollsComponent implements OnInit{
         // console.error('Error submitting vote', error)
         this.errorMessage = error?.error?.message || 'An error occurred while submitting your vote.';
         this.cdr.detectChanges();
+        this.openSnackBar(this.errorMessage);
         setTimeout(() => this.errorMessage = '', 3000);
       }
     })

@@ -1,20 +1,9 @@
 <h1>Active polls</h1>
-<!-- Success Message -->
-<div *ngIf="successMessage" class="message success-message">
-    {{ successMessage }}
-  </div>
-  
-  <!-- Error Message -->
-  <div *ngIf="errorMessage" class="message error-message">
-    {{ errorMessage }}
-  </div>
-  
 <div class="row">
     <div class="col-12 col-sm-6 col-md-4 mb-3 d-flex justify-content-around" *ngFor="let poll of polls">
         <mat-card class="inner-card d-flex flex-column">
             <mat-card-title class="incident-title flex-grow-1">{{ poll.question }}</mat-card-title>
             <mat-card-content>
-                <!-- Radio buttons for voting -->
                 <mat-radio-group class="vote-options d-flex flex-column justify-content-between mt-2"
                     (change)="vote(poll, $event.value)">
                     <mat-radio-button value="yes">
