@@ -4,7 +4,9 @@
         <mat-list-item *ngFor="let document of documents" role="listitem">
           <div class="d-flex w-100 justify-content-between align-items-center">
             <span>{{ document.title }}</span>
-            <span class="fw-bold actions"> <mat-icon mat-list-icon>delete</mat-icon></span>
+            <span class="fw-bold actions"> 
+              <mat-icon mat-list-icon (click)="deleteDocument(document)">delete</mat-icon>
+            </span>
           </div>
         </mat-list-item>
       </mat-list>
