@@ -82,6 +82,7 @@ export class SidenavComponent implements OnInit {
   }
   isPollsDropdownOpen = false;
   isDocsDropdownOpen = false;
+  isDiscussionDropdownOpen = false
 
   // Toggle the polls dropdown
   togglePollsDropdown(): void {
@@ -89,6 +90,9 @@ export class SidenavComponent implements OnInit {
   }
   toggleDocsDropdown(): void {
     this.isDocsDropdownOpen = !this.isDocsDropdownOpen;
+  }
+  toggleDiscussionDropdown(): void {
+    this.isDiscussionDropdownOpen = !this.isDiscussionDropdownOpen;
   }
   closeSidenavOnSelect(): void {
     console.log("Reached");

@@ -38,8 +38,8 @@ export class DiscussionsService {
     )
   }
 
-  createTopic(topic:Discussions): Observable<any> {
-    return this.http.post(`${this.topicsApiUrl}/add`, topic, this.getOptions())
+  createTopic(question: string): Observable<any> {
+    return this.http.post(`${this.topicsApiUrl}/add`, {question}, this.getOptions())
     .pipe(
       catchError(error => {
         console.error('Error adding topic', error)

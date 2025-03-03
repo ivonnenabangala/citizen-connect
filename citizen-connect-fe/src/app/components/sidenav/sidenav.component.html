@@ -96,7 +96,7 @@
                 </div>
             </mat-list-item>
             <mat-divider></mat-divider>
-            
+
             <mat-list-item (click)="toggleDocsDropdown()">
                 <div class="d-flex align-items-center gap-2">
                   <mat-icon mat-list-icon>library_books</mat-icon>
@@ -121,12 +121,29 @@
                 </mat-list-item>
               </div>
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['admin/discussions']" (click)="closeSidenavOnSelect()">
+            <mat-list-item (click)="toggleDiscussionDropdown()">
                 <div class="d-flex align-items-center gap-2">
-                    <mat-icon mat-list-icon>feedback</mat-icon>
-                    <span>Discussions</span>
+                  <mat-icon mat-list-icon>feedback</mat-icon>
+                  <span>Discussions</span>
+                  <mat-icon>{{ isDiscussionDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
                 </div>
-            </mat-list-item>
+              </mat-list-item>
+              
+              <div class="sidenav-dropdown" *ngIf="isDiscussionDropdownOpen">
+                <mat-list-item [routerLink]="['/admin/discussions']" [queryParams]="{view: 'manage'}" (click)="closeSidenavOnSelect()">
+                  <div class="d-flex align-items-center gap-2 ms-4">
+                    <mat-icon mat-list-icon>list</mat-icon>
+                    <span>Manage</span>
+                  </div>
+                </mat-list-item>
+              
+                <mat-list-item [routerLink]="['/admin/discussions']" [queryParams]="{view: 'add'}" (click)="closeSidenavOnSelect()">
+                  <div class="d-flex align-items-center gap-2 ms-4">
+                    <mat-icon mat-list-icon>add_circle</mat-icon>
+                    <span>Add Topic</span>
+                  </div>
+                </mat-list-item>
+              </div>
             <mat-divider></mat-divider>
             <mat-list-item [routerLink]="['/users']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">

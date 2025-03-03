@@ -41,6 +41,10 @@ export const routes: Routes = [
         loadComponent: () => import('./admin/admin-documents/admin-documents.component').then(c => c.AdminDocumentsComponent)
     },
     {
+        path: 'admin/discussions',
+        loadComponent: () => import('./admin/admin-discussions/admin-discussions.component').then(c => c.AdminDiscussionsComponent)
+    },
+    {
         path: 'users',
         loadComponent: () => import('./admin/users/users.component').then(c => c.UsersComponent)
     },
