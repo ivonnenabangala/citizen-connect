@@ -52,7 +52,8 @@ export class IncidentsComponent implements OnInit {
   }
   openReportDialog(): void {
     const dialogRef = this.dialog.open(ReportIncidentDialogComponent, {
-      width: '500px',
+      width: '50%',
+      maxWidth: 'none'
     });
 
     dialogRef.afterClosed().subscribe((result) => {

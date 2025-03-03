@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>
+<h2 mat-dialog-title class="p-3">
     <span class="black">Repor</span>
     <span class="red">t an In</span>
     <span class="green">cident</span>
   </h2>
   
-  <div mat-dialog-content>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="p-3">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="d-flex flex-column">
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Title</mat-label>
             <input 
@@ -39,11 +39,11 @@
           <mat-error *ngIf="description?.errors?.['required']">Location is required</mat-error>
         </mat-form-field>
         
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
           <mat-label>Images</mat-label>
-          <input matInput [value]="selectedFileNames" readonly>
+          <input matInput [value]="selectedFileNames.join(', ')" readonly>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+        <button mat-raised-button color="primary" type="button" (click)="fileInput.click()" class="w-50 mb-3">
           Upload Images
         </button>
         
@@ -68,7 +68,7 @@
             color="primary" 
             type="submit" 
             [disabled]="form.invalid || isLoading" 
-            class="full-width"
+            class="w-50 mb-3"
           >
             <mat-spinner *ngIf="isLoading" [diameter]="20" class="spinner"></mat-spinner>
             <span>Report</span>

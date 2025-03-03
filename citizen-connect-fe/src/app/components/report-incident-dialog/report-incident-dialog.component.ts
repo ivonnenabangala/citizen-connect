@@ -64,20 +64,22 @@ export class ReportIncidentDialogComponent {
   }
 
 
-  selectedFileNames: string = 'No files selected';
+  // selectedFileNames: string = 'No files selected';
 
 
   selectedFiles: File[] = [];
+  selectedFileNames: string[] = [];
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFiles = Array.from(input.files);
-      this.selectedFileNames = this.selectedFiles.map(file => file.name).join(', ');
-    } else {
-      this.selectedFileNames = 'No files selected';
-    }
+onFileSelected(event: Event) {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.selectedFiles = Array.from(input.files); // Store multiple files
+    this.selectedFileNames = this.selectedFiles.map(file => file.name); // Store file names in an array
+  } else {
+    this.selectedFileNames = [];
   }
+}
+
 
 
   onSubmit(): void {
