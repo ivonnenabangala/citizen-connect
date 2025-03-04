@@ -3,4 +3,7 @@ export interface Discussions {
     opinionId: number
     question: string
     opinion: string
+    summarizedOpinion?: string;
+    isLoading?: boolean; // Tracks loading state
+  errorMessage?: string;
 }

@@ -1,16 +1,6 @@
 <div class="container">
     <div *ngIf="activeView === 'manage'">
         <h2>Manage Discussions</h2>
-        <div *ngIf="isLoading">🔄 Loading summary...</div>
-
-        <div *ngIf="errorMessage" class="error">
-            ❌ {{ errorMessage }}
-        </div>
-
-        <div *ngIf="summarizedOpinion && !isLoading">
-            <h3>📌 Summarized Opinion:</h3>
-            <p>{{ summarizedOpinion }}</p>
-        </div>
         <div *ngIf="discussions.length > 0">
             <div class="discussions" *ngFor="let discussion of discussions">
 
@@ -22,6 +12,16 @@
                         <button class="btn" type="button" (click)="deleteTopic(discussion)">Close</button>
                         <button class="btn" type="button" (click)="fetchSummarizedOpinion(discussion)">Feedback</button>
                     </mat-card-footer>
+                    <div *ngIf="discussion.isLoading">🔄 Loading summary...</div>
+
+                    <div *ngIf="discussion.errorMessage" class="error">
+                        ❌ {{ discussion.errorMessage }}
+                    </div>
+
+                    <div *ngIf="discussion.summarizedOpinion && !discussion.isLoading">
+                        <h3>📌 Summarized Views:</h3>
+                        <p>{{ discussion.summarizedOpinion }}</p>
+                    </div>
                 </mat-card>
             </div>
         </div>

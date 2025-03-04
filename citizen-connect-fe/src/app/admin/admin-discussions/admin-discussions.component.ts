@@ -74,23 +74,25 @@ export class AdminDiscussionsComponent implements OnInit {
     });
   }
 
-  fetchSummarizedOpinion(topic:Discussions): void {
-    this.isLoading = true;
-    this.errorMessage = ''; // Reset error state
 
-    this.discussionsService.getSummarizedOpinions(topic.topicId).subscribe({
+  fetchSummarizedOpinion(discussion: Discussions): void {
+    discussion.isLoading = true;
+    discussion.errorMessage = ''; // Reset error state
+  
+    this.discussionsService.getSummarizedOpinions(discussion.topicId).subscribe({
       next: (summary) => {
-        console.log('✅ Fetched Summary:', summary);
-        this.summarizedOpinion = summary;
-        this.isLoading = false;
+        // console.log('✅ Fetched Summary:', summary);
+        discussion.summarizedOpinion = summary;
+        discussion.isLoading = false;
       },
       error: (error) => {
-        console.error('❌ Error fetching summary:', error);
-        this.errorMessage = 'Failed to load summary. Please try again.';
-        this.isLoading = false;
+        // console.error('❌ Error fetching summary:', error);
+        discussion.errorMessage = 'Failed to load summary. Please try again.';
+        discussion.isLoading = false;
       }
     });
   }
+  
 
   deleteTopic(topic: Discussions): void {
     this.successMessage = '';
