@@ -1,1 +1,24 @@
-<p>chat works!</p>
+<mat-toolbar>
+    <div class="bot">
+        <div class="icon">
+            <mat-icon>account_circle</mat-icon>
+        </div>
+        <div class="text">
+            <div class="name">
+                <p>Coyote</p>
+            </div>
+            <div class="status">
+                <p><button class="online-btn"></button>Online</p>
+            </div>
+        </div>
+    </div>
+</mat-toolbar>
+<div class="chat-container">
+    <div *ngFor="let message of messages" [ngClass]="{'user-message': message.sender === 'user', 'bot-message': message.sender === 'bot'}">
+        <p>{{ message.text }}</p>
+    </div>
+</div>
+<mat-form-field appearance="fill">
+    <input matInput [(ngModel)]="query" placeholder="Reply to Coyote...">
+    <mat-icon matSuffix (click)="askQuestion()">send</mat-icon>
+</mat-form-field>

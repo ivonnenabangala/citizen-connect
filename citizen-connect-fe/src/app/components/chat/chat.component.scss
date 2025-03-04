@@ -1,0 +1,70 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    background-color: #2BB179;
+}
+.icon{
+    margin-right: 5px;
+}
+.bot{
+    display: flex;
+    align-items: center;
+}
+p{
+    font-size: small;
+}
+.text{
+    padding: 0;
+    color: white;
+}
+.name{
+    height: 25px;
+    // border: 1px solid red;
+}
+.status{
+    height: 25px;
+}
+.online-btn{
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #31e74f;
+    border: none;
+}
+mat-form-field{
+    width: 80%;
+    position: fixed;
+    bottom: 0;
+}
+mat-icon{
+    color: #2BB179;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #D3F8DA;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    max-width: 60%;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #f1f0f0;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    max-width: 60%;
+}

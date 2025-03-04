@@ -85,26 +85,26 @@ export class DiscussionsService {
     const params = new HttpParams().set('topicId', topicId.toString());
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'apy-token': environment.APYHUB_API_TOKEN  // ✅ Load token from environment
+      'apy-token': environment.APYHUB_API_TOKEN 
     });
 
     return this.http.get<{ opinion: string }[]>(`${this.opinionsApiUrl}/all`, { params }).pipe(
-      map(opinions => opinions.map(op => op.opinion).join(' ')), // Join opinions into a paragraph
+      map(opinions => opinions.map(op => op.opinion).join(' ')),
       switchMap(paragraph => {
-        const trimmedParagraph = paragraph.slice(0, 500); // Some APIs have input limits
+        const trimmedParagraph = paragraph.slice(0, 500); // Input limits
         const requestBody = { text: trimmedParagraph };
 
-        console.log("Sending to APYHub:", JSON.stringify(requestBody)); // Debugging
+        // console.log("Sending to APYHub:", JSON.stringify(requestBody)); 
 
         return this.http.post<{ data: { summary: string } }>(
-          'https://api.apyhub.com/ai/summarize-text',  // ✅ Correct API for text summarization
+          'https://api.apyhub.com/ai/summarize-text', 
           requestBody,
           { headers }
         );
       }),
-      tap(response => console.log("✅ Response from APYHub:", response)), // ✅ Log full API response
-      map(response => response.data.summary), // ✅ Extract summary text
-      tap(summary => console.log("🔹 Summarized Opinion:", summary)),
+      // tap(response => console.log("✅ Response from APYHub:", response)), 
+      map(response => response.data.summary), 
+      // tap(summary => console.log("Summarized Opinion:", summary)),
       catchError(error => {
         console.error('Error fetching or summarizing opinions', error);
         return throwError(() => error);

@@ -5,6 +5,7 @@
 }
 
 .header {
+  width: 100%;
     position: fixed;
     top: 0;
     z-index: 1;
@@ -13,11 +14,22 @@
         flex: 1 1 auto;
     }
 }
+.spacer {
+  flex: 1 1 auto;
+}
+
 
 .mat-drawer-side {
     border-right: none !important;
     width: 13em;
     background-color: #D3F8DA !important;
+}
+@media screen and (max-width: 500px) {
+  .mat-drawer-side {
+    border-right: none !important;
+    width: 6em;
+    background-color: #D3F8DA !important;
+}
 }
 
 .top-nav {

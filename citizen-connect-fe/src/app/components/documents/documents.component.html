@@ -5,7 +5,8 @@
         <mat-card-actions>
             <div class="buttons">
                 <a mat-stroked-button class="stroked-button" [href]="document.fileUrl" target="_blank">Read</a>
-                <a mat-flat-button class="flat-button" >Explainer</a>
+                <a mat-flat-button class="flat-button" [routerLink]="['/chat', document.documentId]" 
+                   [queryParams]="{ url: document.fileUrl }">Explainer</a>
             </div>
         </mat-card-actions>
     </mat-card>

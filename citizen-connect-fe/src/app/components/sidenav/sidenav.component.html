@@ -10,6 +10,8 @@
                 <span class="red">Connect</span>
                 <span class="green">360</span>
             </span>
+            <span class="spacer"></span>
+            <mat-icon mat-list-icon (click)="sidenav.toggle()">close</mat-icon>
         </mat-toolbar>
         <mat-list class="sidenav-list" *ngIf="!isAdmin && !isOfficial">
 
@@ -176,13 +178,6 @@
             </div>
         </mat-list-item>
         <mat-divider></mat-divider>
-        
-          <mat-list-item [routerLink]="['/incidents']" (click)="closeSidenavOnSelect()">
-              <div class="d-flex align-items-center gap-2">
-                  <mat-icon mat-list-icon>notifications_none</mat-icon>
-                  <span>Incidents</span>
-              </div>
-          </mat-list-item>
           
           <mat-divider></mat-divider>
           <mat-list-item (click)="toggleDiscussionDropdown()" >
@@ -194,12 +189,7 @@
             </mat-list-item>
             
             <div class="sidenav-dropdown" *ngIf="isDiscussionDropdownOpen">
-              <mat-list-item [routerLink]="['/discussions']" (click)="closeSidenavOnSelect()">
-                <div class="d-flex align-items-center gap-2 ms-4">
-                    <mat-icon mat-list-icon>feedback</mat-icon>
-                    <span>Discussions</span>
-                </div>
-            </mat-list-item>
+              
               <mat-list-item [routerLink]="['/admin/discussions']" [queryParams]="{view: 'manage'}" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2 ms-4">
                   <mat-icon mat-list-icon>list</mat-icon>
@@ -221,7 +211,7 @@
 
     <mat-sidenav-content>
         <mat-toolbar color="primary" class="header">
-            <button mat-icon-button (click)="sidenav.toggle()">
+            <button class="menu-btn" mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
             <span class="spacer"></span>
@@ -233,7 +223,7 @@
                 </button>
             </div>
         </mat-toolbar>
-        <main style="margin-top: 64px;">
+        <main style="margin: 64px auto; width: 95%;">
 
             <router-outlet></router-outlet>
         </main>

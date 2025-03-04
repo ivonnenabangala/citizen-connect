@@ -29,6 +29,10 @@ export const routes: Routes = [
         loadComponent: () => import('./components/documents/documents.component').then(c => c.DocumentsComponent)
     },
     {
+        path: 'chat/:id',
+        loadComponent: () => import('./components/chat/chat.component').then(c => c.ChatComponent)
+    },
+    {
         path: 'admin/dashboard',
         loadComponent: () => import('./admin/admin-dashboard/admin-dashboard.component').then(c => c.AdminDashboardComponent)
     },
