@@ -3,3 +3,5 @@ node_modules/
 # Ignore environments folder
 citizen-connect-fe/src/environments/environment.ts
 citizen-connect-fe/src/environments/environment.prod.ts
+
+myenv
