@@ -35,13 +35,19 @@ jobs:
             - name: Installs dependencies
               uses: ./.github/actions/cache_deps
 
-            - name: Create environment.prod.ts from Secret
+            - name: Create environment files from Secret
               run: |
                 mkdir -p citizen-connect-fe/src/environments
+                echo "export const environment = {" > citizen-connect-fe/src/environments/environment.ts
+                echo "  production: false," >> citizen-connect-fe/src/environments/environment.ts
+                echo "  APYHUB_API_TOKEN: '${{ secrets.APYHUB_API_TOKEN }}'" >> citizen-connect-fe/src/environments/environment.ts
+                echo "};" >> citizen-connect-fe/src/environments/environment.ts
+            
                 echo "export const environment = {" > citizen-connect-fe/src/environments/environment.prod.ts
                 echo "  production: true," >> citizen-connect-fe/src/environments/environment.prod.ts
                 echo "  APYHUB_API_TOKEN: '${{ secrets.APYHUB_API_TOKEN }}'" >> citizen-connect-fe/src/environments/environment.prod.ts
                 echo "};" >> citizen-connect-fe/src/environments/environment.prod.ts
+            
             
               
 
@@ -55,7 +61,7 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: dist-files
-                path: ./dist
+                path: citizen-connect-fe/dist/citizen-connect-fe/browser
 
     deploy:
         needs: build
@@ -78,7 +84,7 @@ jobs:
                 AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
               with:
                 bucketName: citizen-connect-fe
-                distFiles: ./dist/citizen-connect-fe/browser
+                distFiles: citizen-connect-fe/dist/citizen-connect-fe/browser
 
             - name: Get website URL
               run: echo "${{steps.deploy.outputs.URL}}"
