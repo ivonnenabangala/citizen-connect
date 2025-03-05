@@ -38,7 +38,12 @@ jobs:
             - name: Create environment.prod.ts from Secret
               run: |
                 mkdir -p citizen-connect-fe/src/environments
-                echo "${{ secrets.ENV_PROD_TS }}" > citizen-connect-fe/src/environments/environment.prod.ts
+                echo "${{ secrets.ENV_PROD_TS }}" | tee citizen-connect-fe/src/environments/environment.prod.ts
+            
+
+            - name: Verify environment file
+              run: cat citizen-connect-fe/src/environments/environment.prod.ts
+              
 
             - name: Build the application
               run: cd citizen-connect-fe && npm run build
