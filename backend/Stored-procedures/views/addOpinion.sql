@@ -9,4 +9,4 @@ BEGIN
     INSERT INTO Opinions (topicId, opinion, userId)
     VALUES (@topicId, @opinion, @userId)
 END
-GO;
+go

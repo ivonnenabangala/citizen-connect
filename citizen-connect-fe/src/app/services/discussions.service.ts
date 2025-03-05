@@ -12,8 +12,8 @@ import { environment } from '../../environments/environment'; // Relative path t
 })
 export class DiscussionsService {
 
-  private topicsApiUrl = 'http://localhost:4000/topics'
-  private opinionsApiUrl = 'http://localhost:4000/opinions'
+  private topicsApiUrl = 'http://51.20.7.110/topics'
+  private opinionsApiUrl = 'http://51.20.7.110/opinions'
   private summaryApiUrl = 'https://api.apyhub.com/ai/summarize';
   private apiToken = environment.APYHUB_API_TOKEN;
 

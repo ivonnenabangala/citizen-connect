@@ -7,4 +7,4 @@ BEGIN
     SELECT * FROM Polls
     WHERE pollId = @pollId;
 END
-GO;
+GO

@@ -7,4 +7,4 @@ BEGIN
     INSERT INTO TopicQuestion (question)
     VALUES (@question)
 END
-GO;
+GO

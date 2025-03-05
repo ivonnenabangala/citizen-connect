@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit{
   }
 
   getUsers(): void {
-    this.http.get<User[]>('http://localhost:4000/users/allUsers')
+    this.http.get<User[]>('http://51.20.7.110/users/allUsers')
       .subscribe(users => {
         this.users = users;
       });
@@ -56,7 +56,7 @@ export class UsersComponent implements OnInit{
   updateUserRole(user: User): void {
     if (!user.selectedRole) return;
     
-    this.http.patch(`http://localhost:4000/users/updateUser/${user.id}`, 
+    this.http.patch(`http://51.20.7.110/users/updateUser/${user.id}`, 
     { role: user.selectedRole }, this.getOptions())
       .subscribe(() => {
         if (user.selectedRole) {

@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE deleteDocument
+CREATE OR ALTER  PROCEDURE deleteIncident
     @incidentId INT
 AS
 BEGIN
@@ -6,4 +6,4 @@ BEGIN
 
     DELETE FROM Incidents WHERE incidentId = @incidentId;
 END
-Go;
+go

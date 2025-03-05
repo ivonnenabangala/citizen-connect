@@ -8,7 +8,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Incidents ( userId, title, description, location, imageUrl)
-    VALUES ( @userId, @title, @description, @location, @imageUrl)
+    INSERT INTO Incidents ( userId, title, description, location, imageUrls)
+    VALUES ( @userId, @title, @description, @location, @imageUrls)
 END
-GO;
+go

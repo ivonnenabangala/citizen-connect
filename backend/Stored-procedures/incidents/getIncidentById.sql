@@ -7,4 +7,4 @@ BEGIN
     SELECT * FROM Incidents
     WHERE incidentId = @incidentId;
 END
-GO;
+go

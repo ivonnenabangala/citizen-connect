@@ -9,7 +9,7 @@ import { Documents } from '../interfaces/documents';
   providedIn: 'root'
 })
 export class DocumentsService {
-  private apiUrl = 'http://localhost:4000/documents';
+  private apiUrl = 'http://51.20.7.110/documents';
 
   constructor(
     private http: HttpClient,

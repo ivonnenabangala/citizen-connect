@@ -6,4 +6,4 @@ BEGIN
 
     DELETE FROM Polls WHERE pollId = @pollId;
 END
-Go;
+Go

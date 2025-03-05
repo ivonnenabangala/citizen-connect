@@ -21,3 +21,18 @@ button{
 .form-footer a{
     color: #33B249;
 }
+
+@media screen and (max-width: 992px){
+    .container{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .form{
+        display: flex;
+        justify-content: center;
+        margin: 96px auto;
+    }
+    .image{
+        display: none;
+    }
+}

@@ -7,4 +7,4 @@ BEGIN
     SELECT * FROM Documents
     WHERE documentId = @documentId;
 END
-GO;
+go

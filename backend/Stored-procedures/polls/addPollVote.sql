@@ -22,4 +22,4 @@ BEGIN
         PRINT 'Invalid vote type. Use "yes" or "no".';
     END
 END
-GO;
+go

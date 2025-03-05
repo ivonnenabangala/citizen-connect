@@ -1,5 +1,6 @@
+USE CitizenConnect
 CREATE TABLE Users (
-    id PRIMARY KEY,
+    id VARCHAR(255) PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -18,7 +19,7 @@ CREATE TABLE Polls (
 
 CREATE TABLE Votes (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    userId UNIQUEIDENTIFIER NOT NULL,
+    userId VARCHAR(255) NOT NULL,
     pollId INT NOT NULL,
     created_at DATETIME DEFAULT GETDATE(),
 
@@ -32,9 +33,11 @@ CREATE TABLE TopicQuestion(
     question VARCHAR(500) NOT NULL,
     created_at DATETIME DEFAULT GETDATE()
 )
+USE CitizenConnect
 
 CREATE TABLE Opinions(
     opinionId INT IDENTITY(1, 1) PRIMARY KEY,
+    userId VARCHAR(255),
     topicId INT NOT NULL,
     opinion VARCHAR(1600) NOT NULL,
 
@@ -49,13 +52,14 @@ CREATE TABLE Documents (
     created_at DATETIME DEFAULT GETDATE()
 );
 
+USE CitizenConnect
 CREATE TABLE Incidents (
     incidentId INT PRIMARY KEY IDENTITY(1,1),
     userId VARCHAR(255),
     title VARCHAR(255),
     description VARCHAR(1000),
     location VARCHAR(100),
-    imageUrl VARCHAR(500),
+    imageUrlS VARCHAR(500),
     created_at DATETIME DEFAULT GETDATE()
 
     CONSTRAINT FK_Incident_UserId FOREIGN KEY (userId) REFERENCES Users(id),

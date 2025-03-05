@@ -6,4 +6,4 @@ BEGIN
 
     DELETE FROM Documents WHERE documentId = @documentId;
 END
-Go;
+go
