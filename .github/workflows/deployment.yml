@@ -38,11 +38,11 @@ jobs:
             - name: Create environment.prod.ts from Secret
               run: |
                 mkdir -p citizen-connect-fe/src/environments
-                echo "${{ secrets.ENV_PROD_TS }}" | tee citizen-connect-fe/src/environments/environment.prod.ts
+                echo "export const environment = {" > citizen-connect-fe/src/environments/environment.prod.ts
+                echo "  production: true," >> citizen-connect-fe/src/environments/environment.prod.ts
+                echo "  APYHUB_API_TOKEN: '${{ secrets.APYHUB_API_TOKEN }}'" >> citizen-connect-fe/src/environments/environment.prod.ts
+                echo "};" >> citizen-connect-fe/src/environments/environment.prod.ts
             
-
-            - name: Verify environment file
-              run: cat citizen-connect-fe/src/environments/environment.prod.ts
               
 
             - name: Build the application
