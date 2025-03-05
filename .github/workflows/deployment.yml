@@ -76,6 +76,11 @@ jobs:
                 name: dist-files
                 path: ./dist/citizen-connect-fe/browser
 
+            - name: Install dependencies for deploy action
+              run: |
+                cd .github/actions/deploy
+                npm install
+
             - name: Deploy application
               id: deploy
               uses: ./.github/actions/deploy
