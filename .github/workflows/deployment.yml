@@ -37,6 +37,7 @@ jobs:
 
             - name: Create environment.prod.ts from Secret
               run: |
+                mkdir -p citizen-connect-fe/src/environments
                 echo "${{ secrets.ENV_PROD_TS }}" > citizen-connect-fe/src/environments/environment.prod.ts
 
             - name: Build the application
