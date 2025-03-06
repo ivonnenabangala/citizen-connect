@@ -43,13 +43,6 @@
                 </div>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['/admin/discussions']" [queryParams]="{view: 'add'}" (click)="closeSidenavOnSelect()">
-              <div class="d-flex align-items-center gap-2 ms-4">
-                <mat-icon mat-list-icon>add_circle</mat-icon>
-                <span>Add Topic</span>
-              </div>
-            </mat-list-item>
-            <mat-divider></mat-divider>
             <mat-list-item [routerLink]="['/discussions']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
                     <mat-icon mat-list-icon>feedback</mat-icon>
@@ -147,6 +140,14 @@
                   </div>
                 </mat-list-item>
               </div>
+            <mat-divider></mat-divider>
+
+            <mat-list-item [routerLink]="['/admin/discussions']" [queryParams]="{view: 'add'}" (click)="closeSidenavOnSelect()">
+              <div class="d-flex align-items-center gap-2 ms-4">
+                <mat-icon mat-list-icon>add_circle</mat-icon>
+                <span>Add Topic</span>
+              </div>
+            </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item [routerLink]="['/users']" (click)="closeSidenavOnSelect()">
                 <div class="d-flex align-items-center gap-2">
