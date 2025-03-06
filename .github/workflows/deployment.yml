@@ -27,6 +27,7 @@ jobs:
                 path: cypress/reports
 
     build:
+        needs: test
         runs-on: ubuntu-latest
         steps:
             - name: Get code
