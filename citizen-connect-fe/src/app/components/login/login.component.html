@@ -6,7 +6,8 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input 
+          <input
+            data-cy="loginEmail" 
             matInput 
             type="email" 
             formControlName="email" 
@@ -20,6 +21,7 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
           <input 
+            data-cy="loginPass"
             matInput 
             [type]="hidePassword ? 'password' : 'text'" 
             formControlName="password" 

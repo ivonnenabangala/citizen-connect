@@ -15,16 +15,16 @@ jobs:
             - name: Load and cache dependencies
               uses: ./.github/actions/cache_deps
 
-            - name: Test code
-              id: tests
-              run: cd citizen-connect-fe && npm run test
-
-            - name: Upload test report
-              if: failure() && steps.tests.outcome == 'failure'
+            - name: Run Cypress tests in headless mode
+              id: cypress-tests
+              run: cd citizen-connect-fe && npx cypress run --config baseUrl=http://citizen-connect-fe.s3-website.eu-north-1.amazonaws.com/login
+      
+            - name: Upload Cypress test report
+              if: failure() && steps.cypress-tests.outcome == 'failure'
               uses: actions/upload-artifact@v4
               with:
-                name: test-report
-                path: test.json
+                name: cypress-test-report
+                path: cypress/reports
 
     build:
         runs-on: ubuntu-latest
