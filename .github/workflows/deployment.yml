@@ -15,29 +15,19 @@ jobs:
             - name: Load and cache dependencies
               uses: ./.github/actions/cache_deps
 
-            - name: Cache Cypress binary
-              uses: actions/cache@v4
-              with:
-                path: ~/.cache/Cypress
-                key: cypress-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-                restore-keys: |
-                  cypress-${{ runner.os }}-
+            - name: Run unit tests
+              id: tests
+              run: npm run test
 
-            - name: Ensure Cypress is installed
-              run: cd citizen-connect-fe && npx cypress install
-
-            - name: Run Cypress tests in headless mode
-              id: cypress-tests
-              run: cd citizen-connect-fe && npx cypress run --config baseUrl=http://citizen-connect-fe.s3-website.eu-north-1.amazonaws.com/login
-      
-            - name: Upload Cypress test report
-              if: failure() && steps.cypress-tests.outcome == 'failure'
+            - name: Upload test report
+              if: failure() && steps.tests.outcome == 'failure'
               uses: actions/upload-artifact@v4
               with:
-                name: cypress-test-report
-                path: cypress/reports
+                name: test-report
+                path: test.json
 
     build:
+        needs: test
         runs-on: ubuntu-latest
         steps:
             - name: Get code

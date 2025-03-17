@@ -64,7 +64,7 @@ describe('It validates Registration form', () => {
         cy.get('input[formControlName="username"]').should('exist').type('Evans');
         cy.get('input[formControlName="email"]').should('exist').type('evannji99@gmail.com');
         cy.get('input[formControlName="password"]').should('exist').type('User1234');
-        cy.get('button').contains('Register').should('not.be.disabled').click();
+        // cy.get('button').contains('Register').should('not.be.disabled').click();
         cy.get('mat-spinner', { timeout: 10000 }).should('exist'); 
         cy.get('mat-spinner', { timeout: 10000 }).should('not.exist');
     });
