@@ -15,6 +15,16 @@ jobs:
             - name: Load and cache dependencies
               uses: ./.github/actions/cache_deps
 
+            - name: Create environment file
+              run: |
+                mkdir -p citizen-connect-fe/src/environments
+                cat <<EOF > citizen-connect-fe/src/environments/environment.ts
+                export const environment = {
+                  production: false,
+                  apiUrl: "${{ secrets.APYHUB_API_TOKEN }}",
+                };
+                EOF
+
             - name: Run unit tests
               id: tests
               run: cd citizen-connect-fe && npm run test
