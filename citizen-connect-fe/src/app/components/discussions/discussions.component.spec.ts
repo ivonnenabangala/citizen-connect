@@ -10,8 +10,8 @@ describe('DiscussionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], // Provide HttpClient
-      declarations: [DiscussionsComponent], // Declare the component
+      imports: [HttpClientTestingModule, DiscussionsComponent], // Provide HttpClient
+      // declarations: [DiscussionsComponent], // Declare the component
       providers: [DiscussionsService, LoginService] // Provide necessary services
     }).compileComponents();
 

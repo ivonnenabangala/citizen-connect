@@ -9,7 +9,7 @@ import { Polls } from '../interfaces/polls';
   providedIn: 'root'
 })
 export class PollsService {
-  private apiUrl = 'http://51.20.7.110/polls';
+  private apiUrl = 'http://localhost:4000/polls';
 
   constructor(
     private http: HttpClient,

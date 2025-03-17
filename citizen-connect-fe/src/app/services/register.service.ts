@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RegisterService {
-  private apiUrl = 'http://51.20.7.110/users/addUser';
+  private apiUrl = 'http://localhost:4000/users/addUser';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

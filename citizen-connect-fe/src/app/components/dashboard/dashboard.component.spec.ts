@@ -9,8 +9,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], // Provide HttpClient
-      declarations: [DashboardComponent], // Declare component
+      imports: [HttpClientTestingModule, DashboardComponent], // Provide HttpClient
+      // declarations: [DashboardComponent], // Declare component
       providers: [LoginService] // Provide LoginService
     }).compileComponents();
 

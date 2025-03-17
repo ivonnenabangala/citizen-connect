@@ -12,7 +12,7 @@ interface LoginResponse {
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://51.20.7.110';  // Replace with your API URL
+  private apiUrl = 'http://localhost:4000';  // Replace with your API URL
   private tokenKey = 'auth_token';
   
   private currentUserSubject = new BehaviorSubject<any>(null);

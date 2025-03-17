@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import this
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PollsService } from './polls.service';
 
 describe('PollsService', () => {
@@ -7,7 +7,7 @@ describe('PollsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], // Add this to provide HttpClient
+      imports: [HttpClientTestingModule], 
     });
     service = TestBed.inject(PollsService);
   });

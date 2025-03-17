@@ -9,7 +9,7 @@ import { Incidents } from '../interfaces/incidents';
   providedIn: 'root'
 })
 export class IncidentsService {
-  private apiUrl = 'http://51.20.7.110/incidents';
+  private apiUrl = 'http://localhost:4000/incidents';
   private incidentId = 6
 
   constructor(

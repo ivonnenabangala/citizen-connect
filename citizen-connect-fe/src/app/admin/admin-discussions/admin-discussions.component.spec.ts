@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminDiscussionsComponent } from './admin-discussions.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('AdminDiscussionsComponent', () => {
   let component: AdminDiscussionsComponent;
@@ -8,9 +11,18 @@ describe('AdminDiscussionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminDiscussionsComponent]
+      imports: [AdminDiscussionsComponent, HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({}),
+            queryParams: of({})
+          }
+        }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AdminDiscussionsComponent);
     component = fixture.componentInstance;

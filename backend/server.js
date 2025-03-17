@@ -12,7 +12,8 @@ const app = express();
 app.use(json());
 
 const allowedOrigins = [
-    'http://51.20.7.110',
+    'http://localhost:4000',
+    'http://localhost:4200',
     'http://citizen-connect-fe.s3-website.eu-north-1.amazonaws.com'
 ];
 
@@ -27,7 +28,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json())
-app.use(express.urlencoded({ extended: true })); // Parse form data
+app.use(express.urlencoded({ extended: true })); 
 
 app.use('/users', usersRouter);
 app.use('/polls', pollsRouter)
@@ -37,5 +38,6 @@ app.use('/documents', documentsRouter)
 app.use('/incidents', incidentsRouter)
 
 
-const PORT = process.env.PORT || 80;
+// const PORT = process.env.PORT || 80;
+const PORT = 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
