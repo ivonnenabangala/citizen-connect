@@ -38,7 +38,6 @@ jobs:
                 path: cypress/reports
 
     build:
-        needs: test
         runs-on: ubuntu-latest
         steps:
             - name: Get code
@@ -60,8 +59,6 @@ jobs:
                 echo "  APYHUB_API_TOKEN: '${{ secrets.APYHUB_API_TOKEN }}'" >> citizen-connect-fe/src/environments/environment.prod.ts
                 echo "};" >> citizen-connect-fe/src/environments/environment.prod.ts
             
-            
-              
 
             - name: Build the application
               run: cd citizen-connect-fe && npm run build
