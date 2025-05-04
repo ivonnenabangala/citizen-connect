@@ -1,4 +1,5 @@
 Citizen Connect
+
 Citizen Connect is a web application designed to bridge the gap between citizens and government authorities by providing a platform for reporting issues, tracking their resolution, and fostering community engagement.
 
 Features
